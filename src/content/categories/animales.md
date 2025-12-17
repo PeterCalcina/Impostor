@@ -1,0 +1,26 @@
+---
+name: Animales
+words:
+  - Perro
+  - Gato
+  - León
+  - Tigre
+  - Elefante
+  - Jirafa
+  - Mono
+  - Oso
+  - Lobo
+  - Zorro
+  - Conejo
+  - Caballo
+  - Vaca
+  - Cerdo
+  - Oveja
+  - Gallina
+  - Pato
+  - Águila
+  - Serpiente
+  - Cocodrilo
+  - Delfín
+  - Ballena
+---

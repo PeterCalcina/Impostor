@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import GameApp from '../components/GameApp';
+
+const categoriesCollection = await getCollection('categories');
+
+// Procesar las categorías para extraer las palabras del frontmatter
+const categoriesData = categoriesCollection.map((category) => {
+	// Quitar la extensión .md del ID para que coincida con los IDs en GameSetup
+	const categoryId = category.id.replace(/\.md$/, '');
+	return {
+		id: categoryId,
+		words: Array.isArray(category.data.words) ? category.data.words : [],
+	};
+});
+
+---
+
+<Layout>
+	<GameApp client:load categories={categoriesData} />
+</Layout>

@@ -1,0 +1,26 @@
+---
+name: '+18'
+words:
+  - Cerveza
+  - Vino
+  - Whisky
+  - Ron
+  - Vodka
+  - Tequila
+  - Cigarro
+  - Cigarrillo
+  - Bar
+  - Discoteca
+  - Noche
+  - Fiesta
+  - Baile
+  - Beso
+  - Abrazo
+  - Cita
+  - Romance
+  - Amor
+  - Pasión
+  - Deseo
+  - Atracción
+  - Seducción
+---

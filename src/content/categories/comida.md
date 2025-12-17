@@ -1,0 +1,26 @@
+---
+name: Comida
+words:
+  - Pizza
+  - Hamburguesa
+  - Sushi
+  - Tacos
+  - Pasta
+  - Ensalada
+  - Pollo
+  - Pescado
+  - Arroz
+  - Frijoles
+  - Sopa
+  - Sandwich
+  - Hot dog
+  - Nachos
+  - Burrito
+  - Quesadilla
+  - Torta
+  - Empanada
+  - Arepa
+  - Tamal
+  - Ceviche
+  - Paella
+---

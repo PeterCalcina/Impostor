@@ -1,0 +1,26 @@
+---
+name: Fiesta
+words:
+  - Bailar
+  - Música
+  - Discoteca
+  - Fiesta de cumpleaños
+  - Globos
+  - Confeti
+  - DJ
+  - Pista de baile
+  - Karaoke
+  - Fiesta temática
+  - Celebración
+  - Brindis
+  - Decoración
+  - Invitados
+  - Regalo
+  - Torta
+  - Velas
+  - Champán
+  - Fotografía
+  - Selfie
+  - Disfraz
+  - Carnaval
+---

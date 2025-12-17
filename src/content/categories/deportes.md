@@ -1,0 +1,26 @@
+---
+name: Deportes
+words:
+  - Fútbol
+  - Baloncesto
+  - Tenis
+  - Voleibol
+  - Natación
+  - Atletismo
+  - Ciclismo
+  - Boxeo
+  - Karate
+  - Yoga
+  - Pilates
+  - Golf
+  - Béisbol
+  - Rugby
+  - Hockey
+  - Esquí
+  - Surf
+  - Escalada
+  - Gimnasia
+  - Carrera
+  - Maratón
+  - Fitness
+---
