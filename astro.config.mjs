@@ -8,5 +8,11 @@ export default defineConfig({
 	integrations: [react()],
 	vite: {
 		plugins: [tailwind()],
+		resolve: {
+			dedupe: ['react', 'react-dom'],
+		},
+		ssr: {
+			noExternal: ['@nanostores/react'],
+		},
 	},
 });
