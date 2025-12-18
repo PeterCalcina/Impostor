@@ -29,13 +29,13 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					<div className="space-y-6">
 						<div className="space-y-2">
 							<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.secretWordWas')}</p>
-							<div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl px-8 py-12 text-4xl font-bold">
+							<div className="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl px-8 py-12 text-4xl font-bold">
 								{game.secretWord}
 							</div>
 						</div>
 						<div className="space-y-2">
 							<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.impostorWas')}</p>
-							<div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl px-6 py-4 text-2xl font-bold">
+							<div className="bg-linear-to-r from-red-600 to-orange-600 rounded-2xl px-6 py-4 text-2xl font-bold">
 								{game.players[game.impostorIndex || 0]}
 							</div>
 						</div>
@@ -48,7 +48,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					{!wordRevealed && (
 						<button
 							onClick={handleReveal}
-							className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/50 flex items-center justify-center gap-3"
+							className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/50 flex items-center justify-center gap-3"
 						>
 							<Eye className="w-6 h-6" />
 							<span>{t('gameFinal.revealWord')}</span>

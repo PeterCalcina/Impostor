@@ -35,7 +35,7 @@ export default function GameScreen() {
 				{/* Turno del Jugador */}
 				<div className="space-y-4">
 					<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameScreen.turnOf')}</p>
-					<h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+					<h2 className="text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-400">
 						{currentPlayer}
 					</h2>
 				</div>
@@ -50,7 +50,7 @@ export default function GameScreen() {
 							onMouseUp={handleHideWord}
 							onMouseLeave={handleHideWord}
 							onTouchEnd={handleHideWord}
-							className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform active:scale-95 shadow-lg shadow-purple-500/50"
+							className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform active:scale-95 shadow-lg shadow-purple-500/50"
 						>
 							<div className="flex items-center justify-center gap-3">
 								<Eye className="w-6 h-6" />
@@ -62,8 +62,8 @@ export default function GameScreen() {
 							<div
 								className={`w-full rounded-2xl px-8 py-12 text-3xl font-bold transition-all transform ${
 									isImpostor
-										? 'bg-gradient-to-r from-red-600 to-orange-600 text-white animate-pulse'
-										: 'bg-gradient-to-r from-green-600 to-emerald-600 text-white'
+										? 'bg-linear-to-r from-red-600 to-orange-600 text-white animate-pulse'
+										: 'bg-linear-to-r from-green-600 to-emerald-600 text-white'
 								}`}
 							>
 								{displayText}
