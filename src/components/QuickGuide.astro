@@ -1,15 +1,15 @@
 ---
-import { getLanguage, getTranslations } from '../utils/i18n';
+import { getLanguage, getTranslations } from "../utils/i18n";
 
 const lang = getLanguage();
 const t = getTranslations(lang);
 ---
 
-<div id="quick-guide-container" class="fixed top-4 right-4 z-50">
+<div id="quick-guide-container" class="fixed top-5 right-5 z-50">
   <!-- Botón de información -->
   <button
     id="quick-guide-toggle"
-    class="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95"
+    class="w-8 h-8 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer"
     aria-label="Toggle Quick Guide"
   >
     <svg
@@ -24,7 +24,7 @@ const t = getTranslations(lang);
         stroke-linecap="round"
         stroke-linejoin="round"
         d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-      />
+      ></path>
     </svg>
   </button>
 
@@ -39,15 +39,15 @@ const t = getTranslations(lang);
     <ul class="space-y-2 text-slate-300">
       <li class="flex gap-2">
         <span>1.</span>
-        <span set:html={t.quickGuide.step1}></span>
+        <span set:html={t.quickGuide.step1} />
       </li>
       <li class="flex gap-2">
         <span>2.</span>
-        <span set:html={t.quickGuide.step2}></span>
+        <span set:html={t.quickGuide.step2} />
       </li>
       <li class="flex gap-2">
         <span>3.</span>
-        <span set:html={t.quickGuide.step3}></span>
+        <span set:html={t.quickGuide.step3} />
       </li>
       <li class="flex gap-2">
         <span>4.</span>
@@ -80,21 +80,21 @@ const t = getTranslations(lang);
   };
 
   function getLanguage() {
-    const stored = localStorage.getItem('language');
-    if (stored === 'es' || stored === 'en') return stored;
+    const stored = localStorage.getItem("language");
+    if (stored === "es" || stored === "en") return stored;
     const browserLang = navigator.language || (navigator as any).userLanguage;
-    return browserLang.startsWith('es') ? 'es' : 'en';
+    return browserLang.startsWith("es") ? "es" : "en";
   }
 
   function updateQuickGuideContent() {
     const lang = getLanguage();
-    const t = translations[lang as 'es' | 'en'];
-    const panel = document.getElementById('quick-guide-panel');
-    
+    const t = translations[lang as "es" | "en"];
+    const panel = document.getElementById("quick-guide-panel");
+
     if (panel) {
-      const title = panel.querySelector('h2');
-      const steps = panel.querySelectorAll('li span:last-child');
-      
+      const title = panel.querySelector("h2");
+      const steps = panel.querySelectorAll("li span:last-child");
+
       if (title) title.textContent = t.quickGuide.title;
       if (steps[0]) steps[0].innerHTML = t.quickGuide.step1;
       if (steps[1]) steps[1].innerHTML = t.quickGuide.step2;
@@ -103,25 +103,29 @@ const t = getTranslations(lang);
     }
   }
 
-  const toggle = document.getElementById('quick-guide-toggle');
-  const panel = document.getElementById('quick-guide-panel');
+  const toggle = document.getElementById("quick-guide-toggle");
+  const panel = document.getElementById("quick-guide-panel");
 
   if (toggle && panel) {
-    toggle.addEventListener('click', () => {
-      panel.classList.toggle('hidden');
+    toggle.addEventListener("click", () => {
+      panel.classList.toggle("hidden");
     });
 
     // Cerrar al hacer clic fuera
-    document.addEventListener('click', (e) => {
-      const container = document.getElementById('quick-guide-container');
-      if (container && !container.contains(e.target as Node) && !panel.classList.contains('hidden')) {
-        panel.classList.add('hidden');
+    document.addEventListener("click", (e) => {
+      const container = document.getElementById("quick-guide-container");
+      if (
+        container &&
+        !container.contains(e.target as Node) &&
+        !panel.classList.contains("hidden")
+      ) {
+        panel.classList.add("hidden");
       }
     });
   }
 
   // Actualizar contenido cuando cambie el idioma
-  window.addEventListener('languageChanged', updateQuickGuideContent);
+  window.addEventListener("languageChanged", updateQuickGuideContent);
 </script>
 
 <style>
@@ -140,4 +144,3 @@ const t = getTranslations(lang);
     }
   }
 </style>
-

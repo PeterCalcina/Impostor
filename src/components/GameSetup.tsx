@@ -39,7 +39,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
   const canStart = game.players.length >= 3 && game.selectedCategory !== null;
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center justify-center">
+    <div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
       <div className="w-full max-w-md space-y-8 animate-fade-in">
 
         {/* Input de Jugadores */}
@@ -56,7 +56,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
             />
             <button
               onClick={handleAddPlayer}
-              className="bg-purple-600 hover:bg-purple-700 rounded-2xl px-6 py-3 transition-all transform hover:scale-105 active:scale-95"
+              className="bg-purple-600 hover:bg-purple-700 rounded-2xl px-6 py-3 transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Plus className="w-5 h-5" />
             </button>
@@ -98,7 +98,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
               <button
                 key={category.id}
                 onClick={() => setCategory(category.id)}
-                className={`rounded-2xl px-4 py-4 font-semibold transition-all transform active:scale-95 ${
+                className={`rounded-2xl px-4 py-4 font-semibold transition-all transform active:scale-95 cursor-pointer ${
                   game.selectedCategory === category.id
                     ? "bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50"
                     : "bg-gray-900 border border-gray-700 text-gray-300 hover:bg-gray-800"
@@ -114,7 +114,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
         <button
           onClick={onStart}
           disabled={!canStart}
-          className={`w-full rounded-2xl px-6 py-4 font-bold text-lg transition-all transform ${
+          className={`w-full rounded-2xl px-6 py-4 font-bold text-lg transition-all transform cursor-pointer ${
             canStart
               ? "bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white scale-100 hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/50"
               : "bg-gray-800 text-gray-500 cursor-not-allowed"

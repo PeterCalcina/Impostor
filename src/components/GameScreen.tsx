@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { gameStore, nextPlayer } from '../stores/gameStore';
-import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { gameStore, nextPlayer, resetGame } from '../stores/gameStore';
+import { Eye, ArrowRight, RotateCcw } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 export default function GameScreen() {
@@ -29,10 +29,15 @@ export default function GameScreen() {
 		nextPlayer();
 	};
 
+	const handlePlayAgain = () => {
+		resetGame();
+		setWordRevealed(false);
+	};
+
 	return (
 		<div className="min-h-screen bg-black text-white p-6 flex flex-col items-center justify-center">
 			<div className="w-full max-w-md space-y-8 text-center animate-fade-in">
-				{/* Turno del Jugador */}
+				{/* Player's turn */}
 				<div className="space-y-4">
 					<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameScreen.turnOf')}</p>
 					<h2 className="text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-400">
@@ -40,7 +45,7 @@ export default function GameScreen() {
 					</h2>
 				</div>
 
-				{/* Botón Ver Palabra / Mostrar Palabra */}
+				{/* Button to view word / show word */}
 				<div className="space-y-6">
 					{!wordRevealed ? (
 						<button
@@ -70,7 +75,7 @@ export default function GameScreen() {
 							</div>
 							<button
 								onClick={handleNext}
-								className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
+								className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
 							>
 								<span>{t('gameScreen.nextPlayer')}</span>
 								<ArrowRight className="w-6 h-6" />
@@ -79,12 +84,21 @@ export default function GameScreen() {
 					)}
 				</div>
 
-				{/* Indicador de Progreso */}
+				{/* Progress indicator */}
 				<div className="pt-4">
 					<p className="text-gray-500 text-sm">
 						{t('gameScreen.player')} {game.currentPlayerIndex + 1} {t('gameScreen.of')} {game.players.length}
 					</p>
 				</div>
+
+				{/* Restart game */}
+				<button
+					onClick={handlePlayAgain}
+					className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
+				>
+					<span>{t('gameScreen.playAgain')}</span>
+					<RotateCcw className="w-6 h-6" />
+				</button>
 			</div>
 		</div>
 	);

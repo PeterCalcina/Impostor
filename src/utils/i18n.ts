@@ -44,6 +44,7 @@ export const translations = {
       player: "Jugador",
       of: "de",
       youAreImpostor: "ERES EL IMPOSTOR",
+      playAgain: "Reiniciar Partida",
     },
     // Game Final
     gameFinal: {
@@ -104,6 +105,7 @@ export const translations = {
       player: "Player",
       of: "of",
       youAreImpostor: "YOU ARE THE IMPOSTOR",
+      playAgain: "Play Again",
     },
     // Game Final
     gameFinal: {

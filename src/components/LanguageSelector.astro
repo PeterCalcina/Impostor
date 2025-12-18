@@ -1,14 +1,16 @@
 ---
 ---
 
-<div id="language-selector-container" class="fixed top-4 left-4 z-50">
+<div id="language-selector-container" class="fixed top-5 left-5 z-50">
   <!-- Botón de idioma -->
   <button
     id="language-toggle"
     class="w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95 font-semibold text-sm"
     aria-label="Toggle Language Selector"
   >
-    <span id="current-lang">ES</span>
+    <span id="current-lang">
+      <img id="current-flag" src="https://flagcdn.com/w20/es.png" width="20" height="15" alt="es" style="display: block;">
+    </span>
   </button>
 
   <!-- Panel desplegable -->
@@ -20,20 +22,26 @@
       id="lang-es"
       class="w-full text-left px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2 text-white"
     >
-      <span class="text-lg">🇪🇸</span>
+      <img src="https://flagcdn.com/w20/es.png" width="20" height="15" alt="es">
       <span>Español</span>
     </button>
     <button
       id="lang-en"
       class="w-full text-left px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2 text-white mt-1"
     >
-      <span class="text-lg">🇬🇧</span>
+      <img src="https://flagcdn.com/w20/gb.png" width="20" height="15" alt="en">
       <span>English</span>
     </button>
   </div>
 </div>
 
 <script>
+  // Mapear códigos de idioma a códigos de país para las banderas
+  const flagCodes: Record<string, string> = {
+    'es': 'es',
+    'en': 'gb'
+  };
+
   // Obtener idioma guardado o detectar del navegador
   function getStoredLanguage() {
     const stored = localStorage.getItem('language');
@@ -49,10 +57,12 @@
     localStorage.setItem('language', lang);
     document.documentElement.lang = lang;
     
-    // Actualizar texto del botón
-    const currentLang = document.getElementById('current-lang');
-    if (currentLang) {
-      currentLang.textContent = lang.toUpperCase();
+    // Actualizar bandera del botón usando FlagCDN
+    const currentFlag = document.getElementById('current-flag');
+    if (currentFlag) {
+      const flagCode = flagCodes[lang] || 'es';
+      (currentFlag as HTMLImageElement).src = `https://flagcdn.com/w20/${flagCode}.png`;
+      (currentFlag as HTMLImageElement).alt = lang;
     }
     
     // Disparar evento personalizado para que otros componentes reaccionen
@@ -120,6 +130,11 @@
   #lang-en.active {
     background-color: rgba(139, 92, 246, 0.2);
     border: 1px solid rgba(139, 92, 246, 0.5);
+  }
+
+  /* Asegurar que las imágenes de banderas se vean bien */
+  #current-flag {
+    object-fit: contain;
   }
 </style>
 
