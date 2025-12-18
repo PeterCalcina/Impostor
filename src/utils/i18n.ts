@@ -28,6 +28,13 @@ export const translations = {
       numberOfImpostors: "Número de Impostores",
       needMorePlayers: "Necesitas al menos 3 jugadores",
       start: "Empezar",
+      spicyWarning: {
+        title: "⚠️ Advertencia: Contenido Picante",
+        message: "Esta categoría contiene palabras con contenido para adultos.",
+        description: "Asegúrate de que todos los jugadores estén cómodos con este tipo de contenido antes de continuar.",
+        confirm: "Continuar",
+        cancel: "Cancelar",
+      },
     },
     // Categories
     categories: {
@@ -92,6 +99,13 @@ export const translations = {
       numberOfImpostors: "Number of Impostors",
       needMorePlayers: "You need at least 3 players",
       start: "Start",
+      spicyWarning: {
+        title: "⚠️ Warning: Spicy Content",
+        message: "This category contains words with adult content.",
+        description: "Make sure all players are comfortable with this type of content before continuing.",
+        confirm: "Continue",
+        cancel: "Cancel",
+      },
     },
     // Categories
     categories: {
