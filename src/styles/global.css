@@ -57,7 +57,7 @@
 }
 
 /* ============================================
-   Clases de utilidad para animaciones
+   Animations classes
    ============================================ */
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
@@ -76,14 +76,14 @@
 }
 
 /* ============================================
-   Estilos para paneles desplegables
+   Dropdown panel styles
    ============================================ */
 .panel-dropdown {
   animation: slideDown 0.3s ease-out;
 }
 
 /* ============================================
-   Estilos para imágenes de banderas
+   Flag images styles
    ============================================ */
 #current-flag {
   object-fit: contain;
@@ -91,7 +91,7 @@
 }
 
 /* ============================================
-   Estilos para elementos activos en selectores
+   Active elements styles in selectors
    ============================================ */
 .lang-option.active {
   background-color: rgba(139, 92, 246, 0.2);
@@ -99,7 +99,7 @@
 }
 
 /* ============================================
-   Buttons Styles
+   Buttons styles
    ============================================ */
 
 /* Base button styles */
