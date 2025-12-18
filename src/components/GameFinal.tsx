@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { gameStore, resetGame, resetAll } from '../stores/gameStore';
-import { Eye, RotateCcw, Home } from 'lucide-react';
+import { gameStore, resetGame } from '../stores/gameStore';
+import { Eye, RotateCcw } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => void; onPlayAgain: () => void }) {
@@ -21,7 +21,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 	};
 
 	return (
-		<div className="min-h-screen bg-black text-white p-6 flex flex-col items-center justify-center">
+		<div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
 			<div className="w-full max-w-md space-y-8 text-center animate-fade-in">
 				<h1 className="text-4xl font-bold mb-8">{t('gameFinal.gameFinished')}</h1>
 
@@ -48,7 +48,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					{!wordRevealed && (
 						<button
 							onClick={handleReveal}
-							className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/50 flex items-center justify-center gap-3"
+							className="w-full btn-primary-lg flex items-center justify-center gap-3"
 						>
 							<Eye className="w-6 h-6" />
 							<span>{t('gameFinal.revealWord')}</span>
@@ -56,7 +56,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					)}
 					<button
 						onClick={handlePlayAgain}
-						className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
+						className="w-full btn-secondary-lg flex items-center justify-center gap-3"
 					>
 						<RotateCcw className="w-6 h-6" />
 						<span>{t('gameFinal.playAgain')}</span>

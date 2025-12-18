@@ -56,7 +56,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
             />
             <button
               onClick={handleAddPlayer}
-              className="bg-purple-600 hover:bg-purple-700 rounded-2xl px-6 py-3 transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+              className="btn-sm"
             >
               <Plus className="w-5 h-5" />
             </button>
@@ -78,7 +78,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
                   <span className="text-white">{player}</span>
                   <button
                     onClick={() => removePlayer(player)}
-                    className="text-red-500 hover:text-red-600 transition-colors p-1 rounded-full hover:bg-red-500/10"
+                    className="btn-icon"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -98,11 +98,11 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
               <button
                 key={category.id}
                 onClick={() => setCategory(category.id)}
-                className={`rounded-2xl px-4 py-4 font-semibold transition-all transform active:scale-95 cursor-pointer ${
+                className={
                   game.selectedCategory === category.id
-                    ? "bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50"
-                    : "bg-gray-900 border border-gray-700 text-gray-300 hover:bg-gray-800"
-                }`}
+                    ? "btn-category-active"
+                    : "btn-category-inactive"
+                }
               >
                 {t(category.nameKey)}
               </button>
@@ -114,11 +114,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
         <button
           onClick={onStart}
           disabled={!canStart}
-          className={`w-full rounded-2xl px-6 py-4 font-bold text-lg transition-all transform cursor-pointer ${
-            canStart
-              ? "bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white scale-100 hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/50"
-              : "bg-gray-800 text-gray-500 cursor-not-allowed"
-          }`}
+          className={`w-full ${canStart ? "btn-primary-md" : "btn-disabled"}`}
         >
           {t("gameSetup.start")}
         </button>

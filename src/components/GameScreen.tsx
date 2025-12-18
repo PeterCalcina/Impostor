@@ -35,7 +35,7 @@ export default function GameScreen() {
 	};
 
 	return (
-		<div className="min-h-screen bg-black text-white p-6 flex flex-col items-center justify-center">
+		<div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
 			<div className="w-full max-w-md space-y-8 text-center animate-fade-in">
 				{/* Player's turn */}
 				<div className="space-y-4">
@@ -55,7 +55,7 @@ export default function GameScreen() {
 							onMouseUp={handleHideWord}
 							onMouseLeave={handleHideWord}
 							onTouchEnd={handleHideWord}
-							className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform active:scale-95 shadow-lg shadow-purple-500/50"
+							className="w-full btn-primary-lg"
 						>
 							<div className="flex items-center justify-center gap-3">
 								<Eye className="w-6 h-6" />
@@ -75,7 +75,7 @@ export default function GameScreen() {
 							</div>
 							<button
 								onClick={handleNext}
-								className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
+								className="w-full btn-secondary-lg flex items-center justify-center gap-3"
 							>
 								<span>{t('gameScreen.nextPlayer')}</span>
 								<ArrowRight className="w-6 h-6" />
@@ -94,7 +94,7 @@ export default function GameScreen() {
 				{/* Restart game */}
 				<button
 					onClick={handlePlayAgain}
-					className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
+					className="w-full btn-secondary-lg flex items-center justify-center gap-3"
 				>
 					<span>{t('gameScreen.playAgain')}</span>
 					<RotateCcw className="w-6 h-6" />
