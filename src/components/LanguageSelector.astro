@@ -1,0 +1,125 @@
+---
+---
+
+<div id="language-selector-container" class="fixed top-4 left-4 z-50">
+  <!-- Botón de idioma -->
+  <button
+    id="language-toggle"
+    class="w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95 font-semibold text-sm"
+    aria-label="Toggle Language Selector"
+  >
+    <span id="current-lang">ES</span>
+  </button>
+
+  <!-- Panel desplegable -->
+  <div
+    id="language-panel"
+    class="hidden absolute top-16 left-0 w-40 bg-slate-900/95 border border-slate-800 rounded-2xl p-3 shadow-2xl backdrop-blur-sm"
+  >
+    <button
+      id="lang-es"
+      class="w-full text-left px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2 text-white"
+    >
+      <span class="text-lg">🇪🇸</span>
+      <span>Español</span>
+    </button>
+    <button
+      id="lang-en"
+      class="w-full text-left px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2 text-white mt-1"
+    >
+      <span class="text-lg">🇬🇧</span>
+      <span>English</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Obtener idioma guardado o detectar del navegador
+  function getStoredLanguage() {
+    const stored = localStorage.getItem('language');
+    if (stored) return stored;
+    
+    // Detectar idioma del navegador
+    const browserLang = navigator.language || (navigator as any).userLanguage;
+    return browserLang.startsWith('es') ? 'es' : 'en';
+  }
+
+  // Guardar idioma
+  function setLanguage(lang: string) {
+    localStorage.setItem('language', lang);
+    document.documentElement.lang = lang;
+    
+    // Actualizar texto del botón
+    const currentLang = document.getElementById('current-lang');
+    if (currentLang) {
+      currentLang.textContent = lang.toUpperCase();
+    }
+    
+    // Disparar evento personalizado para que otros componentes reaccionen
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
+  }
+
+  // Inicializar
+  const currentLang = getStoredLanguage();
+  setLanguage(currentLang);
+
+  // Toggle del panel
+  const toggle = document.getElementById('language-toggle');
+  const panel = document.getElementById('language-panel');
+  const langEs = document.getElementById('lang-es');
+  const langEn = document.getElementById('lang-en');
+
+  if (toggle && panel) {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      panel.classList.toggle('hidden');
+    });
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('language-selector-container');
+      if (container && !container.contains(e.target as Node) && !panel.classList.contains('hidden')) {
+        panel.classList.add('hidden');
+      }
+    });
+  }
+
+  // Cambiar idioma
+  if (langEs) {
+    langEs.addEventListener('click', () => {
+      setLanguage('es');
+      if (panel) panel.classList.add('hidden');
+    });
+  }
+
+  if (langEn) {
+    langEn.addEventListener('click', () => {
+      setLanguage('en');
+      if (panel) panel.classList.add('hidden');
+    });
+  }
+</script>
+
+<style>
+  #language-panel {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #lang-es.active,
+  #lang-en.active {
+    background-color: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+  }
+</style>
+

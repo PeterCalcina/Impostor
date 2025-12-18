@@ -1,4 +1,8 @@
 ---
+import { getLanguage, getTranslations } from '../utils/i18n';
+
+const lang = getLanguage();
+const t = getTranslations(lang);
 ---
 
 <div id="quick-guide-container" class="fixed top-4 right-4 z-50">
@@ -30,36 +34,75 @@
     class="hidden absolute top-16 right-0 w-80 max-w-[calc(100vw-2rem)] bg-slate-900/95 border border-slate-800 rounded-2xl p-6 text-sm shadow-2xl backdrop-blur-sm"
   >
     <h2 class="text-orange-400 font-bold mb-3 flex items-center gap-2">
-      🚀 Quick Guide for New Players:
+      {t.quickGuide.title}
     </h2>
     <ul class="space-y-2 text-slate-300">
       <li class="flex gap-2">
         <span>1.</span>
-        <span>
-          Add at least <b>3 players</b>.
-        </span>
+        <span set:html={t.quickGuide.step1}></span>
       </li>
       <li class="flex gap-2">
         <span>2.</span>
-        <span>
-          Pick a <b>category</b> and pass the phone around.
-        </span>
+        <span set:html={t.quickGuide.step2}></span>
       </li>
       <li class="flex gap-2">
         <span>3.</span>
-        <span>
-          Everyone gets the secret word, <b>except the Impostor!</b>
-        </span>
+        <span set:html={t.quickGuide.step3}></span>
       </li>
       <li class="flex gap-2">
         <span>4.</span>
-        <span>Find the liar before they guess the word!</span>
+        <span>{t.quickGuide.step4}</span>
       </li>
     </ul>
   </div>
 </div>
 
 <script>
+  const translations = {
+    es: {
+      quickGuide: {
+        title: "🚀 Guía Rápida para Nuevos Jugadores:",
+        step1: "Agrega al menos <b>3 jugadores</b>.",
+        step2: "Elige una <b>categoría</b> y pasa el teléfono.",
+        step3: "Todos reciben la palabra secreta, <b>¡excepto el Impostor!</b>",
+        step4: "¡Encuentra al mentiroso antes de que adivine la palabra!",
+      },
+    },
+    en: {
+      quickGuide: {
+        title: "🚀 Quick Guide for New Players:",
+        step1: "Add at least <b>3 players</b>.",
+        step2: "Pick a <b>category</b> and pass the phone around.",
+        step3: "Everyone gets the secret word, <b>except the Impostor!</b>",
+        step4: "Find the liar before they guess the word!",
+      },
+    },
+  };
+
+  function getLanguage() {
+    const stored = localStorage.getItem('language');
+    if (stored === 'es' || stored === 'en') return stored;
+    const browserLang = navigator.language || (navigator as any).userLanguage;
+    return browserLang.startsWith('es') ? 'es' : 'en';
+  }
+
+  function updateQuickGuideContent() {
+    const lang = getLanguage();
+    const t = translations[lang as 'es' | 'en'];
+    const panel = document.getElementById('quick-guide-panel');
+    
+    if (panel) {
+      const title = panel.querySelector('h2');
+      const steps = panel.querySelectorAll('li span:last-child');
+      
+      if (title) title.textContent = t.quickGuide.title;
+      if (steps[0]) steps[0].innerHTML = t.quickGuide.step1;
+      if (steps[1]) steps[1].innerHTML = t.quickGuide.step2;
+      if (steps[2]) steps[2].innerHTML = t.quickGuide.step3;
+      if (steps[3]) steps[3].textContent = t.quickGuide.step4;
+    }
+  }
+
   const toggle = document.getElementById('quick-guide-toggle');
   const panel = document.getElementById('quick-guide-panel');
 
@@ -76,6 +119,9 @@
       }
     });
   }
+
+  // Actualizar contenido cuando cambie el idioma
+  window.addEventListener('languageChanged', updateQuickGuideContent);
 </script>
 
 <style>

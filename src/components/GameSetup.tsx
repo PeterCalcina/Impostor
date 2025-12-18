@@ -7,18 +7,20 @@ import {
   setCategory,
 } from "../stores/gameStore";
 import { X, Plus } from "lucide-react";
+import { useLanguage } from "../hooks/useLanguage";
 
 const categories = [
-  { id: "fiesta", name: "Fiesta" },
-  { id: "comida", name: "Comida" },
-  { id: "bebida", name: "Bebida" },
-  { id: "animales", name: "Animales" },
-  { id: "deportes", name: "Deportes" },
-  { id: "plus18", name: "+18" },
+  { id: "fiesta", nameKey: "categories.fiesta" },
+  { id: "comida", nameKey: "categories.comida" },
+  { id: "bebida", nameKey: "categories.bebida" },
+  { id: "animales", nameKey: "categories.animales" },
+  { id: "deportes", nameKey: "categories.deportes" },
+  { id: "plus18", nameKey: "categories.plus18" },
 ];
 
 export default function GameSetup({ onStart }: { onStart: () => void }) {
   const game = useStore(gameStore);
+  const { t } = useLanguage();
   const [playerName, setPlayerName] = useState("");
 
   const handleAddPlayer = () => {
@@ -42,14 +44,14 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
 
         {/* Input de Jugadores */}
         <div className="space-y-4">
-          <label className="block text-lg font-semibold">Add Player</label>
+          <label className="block text-lg font-semibold">{t("gameSetup.addPlayer")}</label>
           <div className="flex gap-2">
             <input
               type="text"
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder="Player name"
+              placeholder={t("gameSetup.playerName")}
               className="flex-1 bg-gray-900 border border-gray-700 rounded-2xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             />
             <button
@@ -65,7 +67,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
         {game.players.length > 0 && (
           <div className="space-y-2">
             <label className="block text-lg font-semibold">
-              Players ({game.players.length})
+              {t("gameSetup.players")} ({game.players.length})
             </label>
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {game.players.map((player) => (
@@ -89,7 +91,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
         {/* Selector de Categorías */}
         <div className="space-y-4">
           <label className="block text-lg font-semibold">
-            Select a Category
+            {t("gameSetup.selectCategory")}
           </label>
           <div className="grid grid-cols-2 gap-3">
             {categories.map((category) => (
@@ -102,7 +104,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
                     : "bg-gray-900 border border-gray-700 text-gray-300 hover:bg-gray-800"
                 }`}
               >
-                {category.name}
+                {t(category.nameKey)}
               </button>
             ))}
           </div>
@@ -118,7 +120,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
               : "bg-gray-800 text-gray-500 cursor-not-allowed"
           }`}
         >
-          Start
+          {t("gameSetup.start")}
         </button>
       </div>
     </div>

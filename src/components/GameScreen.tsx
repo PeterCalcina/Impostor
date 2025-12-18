@@ -2,15 +2,17 @@ import { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { gameStore, nextPlayer } from '../stores/gameStore';
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
 
 export default function GameScreen() {
 	const game = useStore(gameStore);
+	const { t } = useLanguage();
 	const [showWord, setShowWord] = useState(false);
 	const [wordRevealed, setWordRevealed] = useState(false);
 
 	const currentPlayer = game.players[game.currentPlayerIndex];
 	const isImpostor = game.currentPlayerIndex === game.impostorIndex;
-	const displayText = isImpostor ? 'ERES EL IMPOSTOR' : game.secretWord || '';
+	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : game.secretWord || '';
 
 	const handleShowWord = () => {
 		setShowWord(true);
@@ -32,7 +34,7 @@ export default function GameScreen() {
 			<div className="w-full max-w-md space-y-8 text-center animate-fade-in">
 				{/* Turno del Jugador */}
 				<div className="space-y-4">
-					<p className="text-gray-400 text-sm uppercase tracking-wider">Turno de</p>
+					<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameScreen.turnOf')}</p>
 					<h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
 						{currentPlayer}
 					</h2>
@@ -52,7 +54,7 @@ export default function GameScreen() {
 						>
 							<div className="flex items-center justify-center gap-3">
 								<Eye className="w-6 h-6" />
-								<span>Ver Palabra</span>
+								<span>{t('gameScreen.viewWord')}</span>
 							</div>
 						</button>
 					) : (
@@ -70,7 +72,7 @@ export default function GameScreen() {
 								onClick={handleNext}
 								className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-2xl px-8 py-6 text-xl font-bold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
 							>
-								<span>Siguiente Jugador</span>
+								<span>{t('gameScreen.nextPlayer')}</span>
 								<ArrowRight className="w-6 h-6" />
 							</button>
 						</div>
@@ -80,7 +82,7 @@ export default function GameScreen() {
 				{/* Indicador de Progreso */}
 				<div className="pt-4">
 					<p className="text-gray-500 text-sm">
-						Jugador {game.currentPlayerIndex + 1} de {game.players.length}
+						{t('gameScreen.player')} {game.currentPlayerIndex + 1} {t('gameScreen.of')} {game.players.length}
 					</p>
 				</div>
 			</div>

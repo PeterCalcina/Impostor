@@ -4,6 +4,7 @@ import { gameStore, startGame } from '../stores/gameStore';
 import GameSetup from './GameSetup';
 import GameScreen from './GameScreen';
 import GameFinal from './GameFinal';
+import { useLanguage } from '../hooks/useLanguage';
 
 interface CategoryData {
 	id: string;
@@ -12,18 +13,19 @@ interface CategoryData {
 
 export default function GameApp({ categories }: { categories: CategoryData[] }) {
 	const game = useStore(gameStore);
+	const { t } = useLanguage();
 
 	const handleStart = () => {
 		const currentGame = gameStore.get();
 		
 		// Validaciones
 		if (!currentGame.selectedCategory) {
-			alert('Por favor selecciona una categoría');
+			alert(t('gameApp.selectCategory'));
 			return;
 		}
 		
 		if (!categories || categories.length === 0) {
-			alert('Error: No se cargaron las categorías correctamente');
+			alert(t('gameApp.categoriesError'));
 			return;
 		}
 		
@@ -31,7 +33,7 @@ export default function GameApp({ categories }: { categories: CategoryData[] }) 
 		const selectedCategory = categories.find(cat => cat.id === currentGame.selectedCategory);
 		
 		if (!selectedCategory || !selectedCategory.words || selectedCategory.words.length === 0) {
-			alert(`Error: No se encontraron palabras para la categoría ${currentGame.selectedCategory}`);
+			alert(`${t('gameApp.categoryWordsError')} ${currentGame.selectedCategory}`);
 			return;
 		}
 		

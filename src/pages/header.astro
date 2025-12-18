@@ -1,15 +1,43 @@
 ---
+import { getLanguage, getTranslations } from '../utils/i18n';
 
+const lang = getLanguage();
+const t = getTranslations(lang);
 ---
-
+ 
 <header class="text-center my-8">
   <h1
     class="text-5xl font-extrabold tracking-tighter bg-linear-to-r from-red-500 to-orange-500 bg-clip-text text-transparent"
   >
     IMPOSTOR
   </h1>
-  <p class="text-slate-400 mt-2 italic">Don't be sus...</p>
+  <p id="header-subtitle" class="text-slate-400 mt-2 italic">{t.header.subtitle}</p>
 </header>
+
+<script>
+  const translations = {
+    es: { header: { subtitle: "No seas sospechoso..." } },
+    en: { header: { subtitle: "Don't be sus..." } },
+  };
+
+  function getLanguage() {
+    const stored = localStorage.getItem('language');
+    if (stored === 'es' || stored === 'en') return stored;
+    const browserLang = navigator.language || (navigator as any).userLanguage;
+    return browserLang.startsWith('es') ? 'es' : 'en';
+  }
+
+  function updateHeaderContent() {
+    const lang = getLanguage();
+    const t = translations[lang as 'es' | 'en'];
+    const subtitle = document.getElementById('header-subtitle');
+    if (subtitle) {
+      subtitle.textContent = t.header.subtitle;
+    }
+  }
+
+  window.addEventListener('languageChanged', updateHeaderContent);
+</script>
 
 <style>
   h1 {

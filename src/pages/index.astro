@@ -5,6 +5,7 @@ import GameApp from '../components/GameApp';
 import Header from './header.astro';
 import Footer from './footer.astro';
 import QuickGuide from '../components/QuickGuide.astro';
+import LanguageSelector from '../components/LanguageSelector.astro';
 
 const categoriesCollection = await getCollection('categories');
 
@@ -21,6 +22,7 @@ const categoriesData = categoriesCollection.map((category) => {
 ---
 
 <Layout>
+	<LanguageSelector />
 	<Header />
 	<QuickGuide />
 	<GameApp client:load categories={categoriesData} />
