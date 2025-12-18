@@ -30,7 +30,7 @@ export function CategorySelector() {
             };
 
             const customClass = isSpicy
-              ? "bg-red-700! hover:bg-red-500! border-red-500! shadow-red-500/50!"
+              ? "btn-warning"
               : "";
 
             const shakeClass = isShaking ? "animate-spicy-shake" : "";
@@ -41,8 +41,8 @@ export function CategorySelector() {
                 onClick={handleCategoryClick}
                 className={
                   isSelected
-                    ? `btn-category-active ${customClass} ${shakeClass}`
-                    : `btn-category-inactive ${customClass} ${shakeClass}`
+                    ? `btn-base btn-category-active ${customClass} ${shakeClass}`
+                    : `btn-base btn-category-inactive`
                 }
               >
                 {category.icon} {t(category.nameKey)}

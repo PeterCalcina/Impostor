@@ -45,13 +45,13 @@ export function ConfirmationDialog({
         <div className="flex gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 btn-secondary-md"
+            className="flex-1 btn-base btn-secondary-md"
           >
             {t("gameSetup.spicyWarning.cancel")}
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 btn-warning"
+            className="flex-1 btn-base btn-warning"
           >
             {t("gameSetup.spicyWarning.confirm")}
           </button>

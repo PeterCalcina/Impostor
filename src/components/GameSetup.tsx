@@ -14,6 +14,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
   const [showSpicyDialog, setShowSpicyDialog] = useState(false);
 
   const canStart = game.players.length >= 3 && game.selectedCategory !== null;
+  const isSpicy = game.selectedCategory === "spicy" ? "btn-warning" : "btn-primary-md";
 
   const handleStartClick = () => {
     if (game.selectedCategory === "spicy") {
@@ -45,7 +46,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
           <button
             onClick={handleStartClick}
             disabled={!canStart}
-            className={`w-full ${canStart ? "btn-primary-md" : "btn-disabled"}`}
+            className={`w-full btn-base ${canStart ? isSpicy : "btn-disabled"}`}
           >
             {t("gameSetup.start")}
           </button>

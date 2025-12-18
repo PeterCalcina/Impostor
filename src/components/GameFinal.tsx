@@ -50,7 +50,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					{!wordRevealed && (
 						<button
 							onClick={handleReveal}
-							className="w-full btn-primary-lg flex items-center justify-center gap-3"
+							className="w-full btn-base btn-primary-lg flex items-center justify-center gap-3"
 						>
 							<Eye className="w-6 h-6" />
 							<span>{t('gameFinal.revealWord')}</span>
@@ -58,7 +58,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 					)}
 					<button
 						onClick={handlePlayAgain}
-						className="w-full btn-secondary-lg flex items-center justify-center gap-3"
+						className="w-full btn-base btn-secondary-lg flex items-center justify-center gap-3"
 					>
 						<RotateCcw className="w-6 h-6" />
 						<span>{t('gameFinal.playAgain')}</span>

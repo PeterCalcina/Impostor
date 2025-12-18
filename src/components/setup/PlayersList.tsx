@@ -32,12 +32,12 @@ export function PlayersList() {
         </label>
 
         <div className="flex items-center gap-2">
-          <button onClick={() => mixPlayers()} className="btn-sm">
+          <button onClick={() => mixPlayers()} className="btn-base btn-sm">
             <Shuffle className="w-5 h-5" />
           </button>
           <button
             onClick={() => resetPlayers()}
-            className="btn-sm bg-red-500!"
+            className="btn-base btn-sm bg-red-500!"
           >
             <Trash className="w-5 h-5" />
           </button>

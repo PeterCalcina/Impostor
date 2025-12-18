@@ -55,7 +55,7 @@ export default function GameScreen() {
 							onMouseUp={handleHideWord}
 							onMouseLeave={handleHideWord}
 							onTouchEnd={handleHideWord}
-							className="w-full btn-primary-lg"
+							className="w-full btn-base btn-primary-lg"
 						>
 							<div className="flex items-center justify-center gap-3">
 								<Eye className="w-6 h-6" />
@@ -75,7 +75,7 @@ export default function GameScreen() {
 							</div>
 							<button
 								onClick={handleNext}
-								className="w-full btn-secondary-lg flex items-center justify-center gap-3"
+								className="w-full btn-base btn-secondary-lg flex items-center justify-center gap-3"
 							>
 								<span>{t('gameScreen.nextPlayer')}</span>
 								<ArrowRight className="w-6 h-6" />

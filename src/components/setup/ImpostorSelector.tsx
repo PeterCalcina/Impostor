@@ -26,10 +26,10 @@ export function ImpostorSelector() {
               disabled={isDisabled}
               className={
                 game.numberOfImpostors === count
-                  ? "btn-category-active"
+                  ? "btn-base btn-category-active"
                   : isDisabled
                   ? "btn-disabled"
-                  : "btn-category-inactive"
+                  : "btn-base btn-category-inactive"
               }
             >
               {count}

@@ -36,7 +36,7 @@ export function PlayersInput() {
           placeholder={t("gameSetup.playerName")}
           className="flex-1 bg-gray-900 border border-gray-700 rounded-2xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
         />
-        <button onClick={handleAddPlayer} className="btn-sm">
+        <button onClick={handleAddPlayer} className="btn-base btn-sm">
           <Plus className="w-5 h-5" />
         </button>
       </div>
