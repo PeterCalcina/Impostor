@@ -1,0 +1,42 @@
+---
+name: Food
+words:
+  - Pizza
+  - Hamburguesa
+  - Sushi
+  - Tacos
+  - Pasta
+  - Ensalada
+  - Pollo
+  - Pescado
+  - Arroz
+  - Sopa
+  - Sandwich
+  - Hot dog
+  - Torta
+  - Empanada
+  - Sopa de maní
+  - Salteña
+  - Churrasco
+  - Majao
+
+words_en:
+  - Pizza
+  - Burger
+  - Sushi
+  - Tacos
+  - Pasta
+  - Salad
+  - Chicken
+  - Fish
+  - Rice
+  - Soup
+  - Sandwich
+  - Hot dog
+  - Cake
+  - Empanada
+  - Peanut soup
+  - Salteña
+  - Churrasco
+  - Majao
+---

@@ -11,7 +11,7 @@ export default function GameScreen() {
 	const [wordRevealed, setWordRevealed] = useState(false);
 
 	const currentPlayer = game.players[game.currentPlayerIndex];
-	const isImpostor = game.currentPlayerIndex === game.impostorIndex;
+	const isImpostor = game.impostorIndices.includes(game.currentPlayerIndex);
 	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : game.secretWord || '';
 
 	const handleShowWord = () => {

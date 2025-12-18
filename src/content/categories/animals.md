@@ -1,5 +1,5 @@
 ---
-name: Animales
+name: Animals
 words:
   - Perro
   - Gato
@@ -23,4 +23,27 @@ words:
   - Cocodrilo
   - Delfín
   - Ballena
+words_en:
+  - Dog
+  - Cat
+  - Lion
+  - Tiger
+  - Elephant
+  - Giraffe
+  - Monkey
+  - Bear
+  - Wolf
+  - Fox
+  - Rabbit
+  - Horse
+  - Cow
+  - Pig
+  - Sheep
+  - Chicken
+  - Duck
+  - Eagle
+  - Snake
+  - Crocodile
+  - Dolphin
+  - Whale
 ---

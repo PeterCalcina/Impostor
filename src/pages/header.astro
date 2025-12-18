@@ -1,5 +1,5 @@
 ---
-import { getLanguage, getTranslations } from '../utils/i18n';
+import { getLanguage, getTranslations, translations } from '../utils/i18n';
 
 const lang = getLanguage();
 const t = getTranslations(lang);
@@ -14,29 +14,23 @@ const t = getTranslations(lang);
   <p id="header-subtitle" class="text-slate-400 mt-2 italic">{t.header.subtitle}</p>
 </header>
 
-<script>
-  const translations = {
-    es: { header: { subtitle: "No seas sospechoso..." } },
-    en: { header: { subtitle: "Don't be sus..." } },
-  };
-
+<script define:vars={{ translations }}>
   function getLanguage() {
     const stored = localStorage.getItem('language');
     if (stored === 'es' || stored === 'en') return stored;
-    const browserLang = navigator.language || (navigator as any).userLanguage;
+    const browserLang = navigator.language || navigator.userLanguage;
     return browserLang.startsWith('es') ? 'es' : 'en';
   }
 
-  function updateHeaderContent() {
+  function updateFooterContent() {
     const lang = getLanguage();
-    const t = translations[lang as 'es' | 'en'];
+    const t = translations[lang];
     const subtitle = document.getElementById('header-subtitle');
-    if (subtitle) {
-      subtitle.textContent = t.header.subtitle;
-    }
+    
+    if (subtitle) subtitle.textContent = t.header.subtitle;
   }
 
-  window.addEventListener('languageChanged', updateHeaderContent);
+  window.addEventListener('languageChanged', updateFooterContent);
 </script>
 
 <style>

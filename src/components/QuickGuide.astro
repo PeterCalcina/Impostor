@@ -1,5 +1,6 @@
 ---
 import { getLanguage, getTranslations } from "../utils/i18n";
+import { translations } from "../utils/i18n";
 
 const lang = getLanguage();
 const t = getTranslations(lang);
@@ -57,38 +58,18 @@ const t = getTranslations(lang);
   </div>
 </div>
 
-<script>
-  const translations = {
-    es: {
-      quickGuide: {
-        title: "🚀 Guía Rápida para Nuevos Jugadores:",
-        step1: "Agrega al menos <b>3 jugadores</b>.",
-        step2: "Elige una <b>categoría</b> y pasa el teléfono.",
-        step3: "Todos reciben la palabra secreta, <b>¡excepto el Impostor!</b>",
-        step4: "¡Encuentra al mentiroso antes de que adivine la palabra!",
-      },
-    },
-    en: {
-      quickGuide: {
-        title: "🚀 Quick Guide for New Players:",
-        step1: "Add at least <b>3 players</b>.",
-        step2: "Pick a <b>category</b> and pass the phone around.",
-        step3: "Everyone gets the secret word, <b>except the Impostor!</b>",
-        step4: "Find the liar before they guess the word!",
-      },
-    },
-  };
+<script define:vars={{ translations }}>
 
   function getLanguage() {
     const stored = localStorage.getItem("language");
     if (stored === "es" || stored === "en") return stored;
-    const browserLang = navigator.language || (navigator as any).userLanguage;
+    const browserLang = navigator.language;
     return browserLang.startsWith("es") ? "es" : "en";
   }
 
   function updateQuickGuideContent() {
     const lang = getLanguage();
-    const t = translations[lang as "es" | "en"];
+    const t = translations[lang];
     const panel = document.getElementById("quick-guide-panel");
 
     if (panel) {
@@ -116,7 +97,7 @@ const t = getTranslations(lang);
       const container = document.getElementById("quick-guide-container");
       if (
         container &&
-        !container.contains(e.target as Node) &&
+        !container.contains(e.target) &&
         !panel.classList.contains("hidden")
       ) {
         panel.classList.add("hidden");

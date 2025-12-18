@@ -1,5 +1,5 @@
 ---
-import { getLanguage, getTranslations } from '../utils/i18n';
+import { getLanguage, getTranslations, translations } from '../utils/i18n';
 
 const lang = getLanguage();
 const t = getTranslations(lang);
@@ -10,32 +10,17 @@ const t = getTranslations(lang);
   <p id="footer-feedback" class="mt-1">{t.footer.feedback}</p>
 </footer>
 
-<script>
-  const translations = {
-    es: {
-      footer: {
-        madeWith: "Hecho con ❤️ para Magios Deck Society",
-        feedback: "¿Tienes ideas? ¡Envíame tu feedback! :D",
-      },
-    },
-    en: {
-      footer: {
-        madeWith: "Made with ❤️ for Magios Deck Society",
-        feedback: "Got ideas? Send me your feedback! :D",
-      },
-    },
-  };
-
+<script define:vars={{ translations }}>
   function getLanguage() {
     const stored = localStorage.getItem('language');
     if (stored === 'es' || stored === 'en') return stored;
-    const browserLang = navigator.language || (navigator as any).userLanguage;
+    const browserLang = navigator.language || navigator.userLanguage;
     return browserLang.startsWith('es') ? 'es' : 'en';
   }
 
   function updateFooterContent() {
     const lang = getLanguage();
-    const t = translations[lang as 'es' | 'en'];
+    const t = translations[lang];
     const madeWith = document.getElementById('footer-made-with');
     const feedback = document.getElementById('footer-feedback');
     

@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useStore } from "@nanostores/react";
 import {
   gameStore,
   addPlayer,
   removePlayer,
   setCategory,
+  setNumberOfImpostors,
 } from "../stores/gameStore";
-import { X, Plus } from "lucide-react";
+import { X, Plus, Shuffle, RotateCcw, Trash } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 
 const categories = [
-  { id: "fiesta", nameKey: "categories.fiesta" },
-  { id: "comida", nameKey: "categories.comida" },
-  { id: "bebida", nameKey: "categories.bebida" },
-  { id: "animales", nameKey: "categories.animales" },
-  { id: "deportes", nameKey: "categories.deportes" },
-  { id: "plus18", nameKey: "categories.plus18" },
+  { id: "party", nameKey: "categories.party", icon: "🎉" },
+  { id: "food", nameKey: "categories.food", icon: "🍔" },
+  { id: "drinks", nameKey: "categories.drinks", icon: "🍺" },
+  { id: "animals", nameKey: "categories.animals", icon: "🐶" },
+  { id: "sports", nameKey: "categories.sports", icon: "🏆" },
+  { id: "plus18", nameKey: "categories.plus18", icon: "🔥" },
 ];
 
 export default function GameSetup({ onStart }: { onStart: () => void }) {
@@ -36,15 +37,29 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
     }
   };
 
+  const mixPlayers = () => {
+    const players = game.players;
+    for (let i = players.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [players[i], players[j]] = [players[j], players[i]];
+    }
+    gameStore.set({ ...game, players });
+  };
+
+  const resetPlayers = () => {
+    gameStore.set({ ...game, players: [] });
+  };
+
   const canStart = game.players.length >= 3 && game.selectedCategory !== null;
 
   return (
     <div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
       <div className="w-full max-w-md space-y-8 animate-fade-in">
-
-        {/* Input de Jugadores */}
+        {/* Players input */}
         <div className="space-y-4">
-          <label className="block text-lg font-semibold">{t("gameSetup.addPlayer")}</label>
+          <label className="block text-lg font-semibold">
+            {t("gameSetup.addPlayer")}
+          </label>
           <div className="flex gap-2">
             <input
               type="text"
@@ -54,21 +69,40 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
               placeholder={t("gameSetup.playerName")}
               className="flex-1 bg-gray-900 border border-gray-700 rounded-2xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             />
-            <button
-              onClick={handleAddPlayer}
-              className="btn-sm"
-            >
+            <button onClick={handleAddPlayer} className="btn-sm">
               <Plus className="w-5 h-5" />
             </button>
           </div>
+
+          {game.players.length > 0 && (
+            <p className="text-xs text-gray-500 text-center">
+              {game.players.length < 3
+                ? t("gameSetup.needMorePlayers")
+                : `Max: ${Math.max(1, Math.floor(game.players.length / 2))}`}
+            </p>
+          )}
         </div>
 
-        {/* Lista de Jugadores */}
+        {/* Players list */}
         {game.players.length > 0 && (
           <div className="space-y-2">
-            <label className="block text-lg font-semibold">
-              {t("gameSetup.players")} ({game.players.length})
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-lg font-semibold">
+                {t("gameSetup.players")} ({game.players.length})
+              </label>
+
+              <div className="flex items-center gap-2">
+                <button onClick={() => mixPlayers()} className="btn-sm">
+                  <Shuffle className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => resetPlayers()}
+                  className="btn-sm bg-red-500!"
+                >
+                  <Trash className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {game.players.map((player) => (
                 <div
@@ -88,7 +122,7 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
           </div>
         )}
 
-        {/* Selector de Categorías */}
+        {/* Categories selector */}
         <div className="space-y-4">
           <label className="block text-lg font-semibold">
             {t("gameSetup.selectCategory")}
@@ -104,13 +138,46 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
                     : "btn-category-inactive"
                 }
               >
-                {t(category.nameKey)}
+                {category.icon} {t(category.nameKey)}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Botón Empezar */}
+        {/* Among Us Impostors */}
+        <div className="space-y-4">
+          <label className="block text-lg font-semibold">
+            {t("gameSetup.numberOfImpostors")}
+          </label>
+          <div className="grid grid-cols-4 gap-2">
+            {[1, 2, 3, 4].map((count) => {
+              const maxImpostors = Math.max(
+                1,
+                Math.floor(game.players.length / 2)
+              );
+              const isDisabled =
+                count > maxImpostors || count >= game.players.length;
+              return (
+                <button
+                  key={count}
+                  onClick={() => setNumberOfImpostors(count)}
+                  disabled={isDisabled}
+                  className={
+                    game.numberOfImpostors === count
+                      ? "btn-category-active"
+                      : isDisabled
+                      ? "btn-disabled"
+                      : "btn-category-inactive"
+                  }
+                >
+                  {count}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Start button */}
         <button
           onClick={onStart}
           disabled={!canStart}

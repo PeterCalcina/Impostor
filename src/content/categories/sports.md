@@ -1,0 +1,49 @@
+---
+name: Sports
+words:
+  - Fútbol
+  - Baloncesto
+  - Tenis
+  - Voleibol
+  - Natación
+  - Atletismo
+  - Ciclismo
+  - Boxeo
+  - Karate
+  - Yoga
+  - Pilates
+  - Golf
+  - Béisbol
+  - Rugby
+  - Hockey
+  - Esquí
+  - Surf
+  - Escalada
+  - Gimnasia
+  - Carrera
+  - Maratón
+  - Fitness
+words_en:
+  - Football
+  - Basketball
+  - Tennis
+  - Volleyball
+  - Swimming
+  - Athletics
+  - Cycling
+  - Boxing
+  - Karate
+  - Yoga
+  - Pilates
+  - Golf
+  - Baseball
+  - Rugby
+  - Hockey
+  - Skiing
+  - Surfing
+  - Climbing
+  - Gymnastics
+  - Race
+  - Marathon
+  - Fitness
+---

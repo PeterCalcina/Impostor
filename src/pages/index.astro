@@ -1,30 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import GameApp from '../components/GameApp';
-import Header from './header.astro';
-import Footer from './footer.astro';
-import QuickGuide from '../components/QuickGuide.astro';
-import LanguageSelector from '../components/LanguageSelector.astro';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import GameApp from "../components/GameApp";
+import Header from "./header.astro";
+import Footer from "./footer.astro";
+import QuickGuide from "../components/QuickGuide.astro";
+import LanguageSelector from "../components/LanguageSelector.astro";
 
-const categoriesCollection = await getCollection('categories');
+const categoriesCollection = await getCollection("categories");
 
-// Procesar las categorías para extraer las palabras del frontmatter
+// Process the categories to extract the words from the frontmatter
+// Include both Spanish and English words so the client can switch languages
 const categoriesData = categoriesCollection.map((category) => {
-	// Quitar la extensión .md del ID para que coincida con los IDs en GameSetup
-	const categoryId = category.id.replace(/\.md$/, '');
-	return {
-		id: categoryId,
-		words: Array.isArray(category.data.words) ? category.data.words : [],
-	};
+  // Remove the .md extension from the category ID to match the IDs in GameSetup
+  const categoryId = category.id.replace(/\.md$/, "");
+  return {
+    id: categoryId,
+    words: Array.isArray(category.data.words) ? category.data.words : [],
+    words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
+  };
 });
-
 ---
 
 <Layout>
-	<LanguageSelector />
-	<Header />
-	<QuickGuide />
-	<GameApp client:load categories={categoriesData} />
-	<Footer />
+  <LanguageSelector />
+  <Header />
+  <QuickGuide />
+  <GameApp client:load categories={categoriesData} />
+  <Footer />
 </Layout>

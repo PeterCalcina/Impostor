@@ -34,9 +34,11 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 							</div>
 						</div>
 						<div className="space-y-2">
-							<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.impostorWas')}</p>
+							<p className="text-gray-400 text-sm uppercase tracking-wider">
+								{game.impostorIndices.length === 1 ? t('gameFinal.impostorWas') : t('gameFinal.impostorsWere')}
+							</p>
 							<div className="bg-linear-to-r from-red-600 to-orange-600 rounded-2xl px-6 py-4 text-2xl font-bold">
-								{game.players[game.impostorIndex || 0]}
+								{game.impostorIndices.map((idx) => game.players[idx]).join(', ')}
 							</div>
 						</div>
 					</div>

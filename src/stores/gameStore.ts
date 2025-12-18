@@ -3,8 +3,9 @@ import { atom } from 'nanostores';
 export interface GameState {
 	players: string[];
 	selectedCategory: string | null;
+	numberOfImpostors: number;
 	secretWord: string | null;
-	impostorIndex: number | null;
+	impostorIndices: number[];
 	currentPlayerIndex: number;
 	gameStarted: boolean;
 	gameFinished: boolean;
@@ -13,8 +14,9 @@ export interface GameState {
 export const gameStore = atom<GameState>({
 	players: [],
 	selectedCategory: null,
+	numberOfImpostors: 1,
 	secretWord: null,
-	impostorIndex: null,
+	impostorIndices: [],
 	currentPlayerIndex: 0,
 	gameStarted: false,
 	gameFinished: false,
@@ -46,6 +48,14 @@ export function setCategory(category: string) {
 	});
 }
 
+export function setNumberOfImpostors(count: number) {
+	const state = gameStore.get();
+	gameStore.set({
+		...state,
+		numberOfImpostors: count,
+	});
+}
+
 export function startGame(words: string[]) {
 	const state = gameStore.get();
 	if (state.players.length < 3 || !state.selectedCategory || words.length === 0) {
@@ -53,12 +63,22 @@ export function startGame(words: string[]) {
 	}
 
 	const randomWord = words[Math.floor(Math.random() * words.length)];
-	const randomImpostor = Math.floor(Math.random() * state.players.length);
+	
+	// Select random impostors (ensure we don't select more impostors than players)
+	const maxImpostors = Math.min(state.numberOfImpostors, state.players.length - 1);
+	const impostorIndices: number[] = [];
+	
+	while (impostorIndices.length < maxImpostors) {
+		const randomIndex = Math.floor(Math.random() * state.players.length);
+		if (!impostorIndices.includes(randomIndex)) {
+			impostorIndices.push(randomIndex);
+		}
+	}
 
 	gameStore.set({
 		...state,
 		secretWord: randomWord,
-		impostorIndex: randomImpostor,
+		impostorIndices: impostorIndices,
 		currentPlayerIndex: 0,
 		gameStarted: true,
 		gameFinished: false,
@@ -86,7 +106,7 @@ export function resetGame() {
 		...state,
 		selectedCategory: null,
 		secretWord: null,
-		impostorIndex: null,
+		impostorIndices: [],
 		currentPlayerIndex: 0,
 		gameStarted: false,
 		gameFinished: false,
@@ -97,8 +117,9 @@ export function resetAll() {
 	gameStore.set({
 		players: [],
 		selectedCategory: null,
+		numberOfImpostors: 1,
 		secretWord: null,
-		impostorIndex: null,
+		impostorIndices: [],
 		currentPlayerIndex: 0,
 		gameStarted: false,
 		gameFinished: false,

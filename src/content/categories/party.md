@@ -1,0 +1,43 @@
+---
+name: Party
+words:
+  - Bailar
+  - Música
+  - Discoteca
+  - Cumpleaños
+  - Globos
+  - Confeti
+  - DJ
+  - Pista de baile
+  - Karaoke
+  - Celebración
+  - Brindis
+  - Decoración
+  - Invitados
+  - Regalo
+  - Champán
+  - Fotografía
+  - Selfie
+  - Disfraz
+  - Carnaval
+words_en:
+  - Dance
+  - Music
+  - Disco
+  - Birthday
+  - Balloons
+  - Confetti
+  - DJ
+  - Dance floor
+  - Karaoke
+  - Celebration
+  - Toast
+  - Decoration
+  - Guests
+  - Gift
+  - Champagne
+  - Photography
+  - Selfie
+  - Costume
+  - Carnival
+---
