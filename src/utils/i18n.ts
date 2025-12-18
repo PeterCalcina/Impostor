@@ -31,12 +31,12 @@ export const translations = {
     },
     // Categories
     categories: {
-      party: "Party",
-      food: "Food",
-      drinks: "Drinks",
-      animals: "Animals",
-      sports: "Sports",
-      plus18: "+18",
+      party: "Fiesta",
+      food: "Comida",
+      drinks: "Bebidas",
+      animals: "Animales",
+      sports: "Deportes",
+      spicy: "Picante",
     },
     // Game Screen
     gameScreen: {
@@ -100,7 +100,7 @@ export const translations = {
       drinks: "Drinks",
       animals: "Animals",
       sports: "Sports",
-      plus18: "+18",
+      spicy: "Spicy",
     },
     // Game Screen
     gameScreen: {

@@ -1,0 +1,41 @@
+---
+name: 'Spicy'
+words:
+  - Resaca
+  - Condón
+  - Perrito
+  - Lencería
+  - Striptease
+  - Sex Shop
+  - Kamasutra
+  - Mañanero
+  - Motel
+  - Tinder
+  - OnlyFans
+  - Preliminares
+  - Esposas
+  - Lubricante
+  - Mordisco
+  - Orgía
+  - Fetiche
+  - Seducción
+words_en:
+  - Hangover
+  - Condom
+  - Doggy Style
+  - Lingerie
+  - Striptease
+  - Sex Shop
+  - Kamasutra
+  - Morning Sex
+  - Motel
+  - Tinder
+  - OnlyFans
+  - Foreplay
+  - Handcuffs
+  - Lubricant
+  - Kiss
+  - Orgasm
+  - Fetish
+  - Seduction
+---

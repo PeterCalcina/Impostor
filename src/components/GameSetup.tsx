@@ -16,13 +16,14 @@ const categories = [
   { id: "drinks", nameKey: "categories.drinks", icon: "🍺" },
   { id: "animals", nameKey: "categories.animals", icon: "🐶" },
   { id: "sports", nameKey: "categories.sports", icon: "🏆" },
-  { id: "plus18", nameKey: "categories.plus18", icon: "🔥" },
+  { id: "spicy", nameKey: "categories.spicy", icon: "🔥" },
 ];
 
 export default function GameSetup({ onStart }: { onStart: () => void }) {
   const game = useStore(gameStore);
   const { t } = useLanguage();
   const [playerName, setPlayerName] = useState("");
+  const [shakingCategory, setShakingCategory] = useState<string | null>(null);
 
   const handleAddPlayer = () => {
     if (playerName.trim()) {
@@ -128,19 +129,39 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
             {t("gameSetup.selectCategory")}
           </label>
           <div className="grid grid-cols-2 gap-3">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setCategory(category.id)}
-                className={
-                  game.selectedCategory === category.id
-                    ? "btn-category-active"
-                    : "btn-category-inactive"
+            {categories.map((category) => {
+              const isSpicy = category.id === "spicy";
+              const isSelected = game.selectedCategory === category.id;
+              const isShaking = shakingCategory === category.id;
+              
+              const handleCategoryClick = () => {
+                setCategory(category.id);
+                if (isSpicy && !isSelected) {
+                  setShakingCategory(category.id);
+                  setTimeout(() => setShakingCategory(null), 600);
                 }
-              >
-                {category.icon} {t(category.nameKey)}
-              </button>
-            ))}
+              };
+
+              const customClass = isSpicy
+                ? "bg-red-700! hover:bg-red-500! border-gray-500! shadow-red-500/50!"
+                : "";
+              
+              const shakeClass = isShaking ? "animate-spicy-shake" : "";
+              
+              return (
+                <button
+                  key={category.id}
+                  onClick={handleCategoryClick}
+                  className={
+                    isSelected
+                      ? `btn-category-active ${customClass} ${shakeClass}`
+                      : `btn-category-inactive ${customClass} ${shakeClass}`
+                  }
+                >
+                  {category.icon} {t(category.nameKey)}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -186,6 +207,26 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
           {t("gameSetup.start")}
         </button>
       </div>
+
+      <style>
+        {`
+          .animate-spicy-shake {
+            animation: spicy-shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+          }
+
+          @keyframes spicy-shake {
+            0%, 100% {
+              transform: translateX(0) rotate(0deg);
+            }
+            10%, 30%, 50%, 70%, 90% {
+              transform: translateX(-4px) rotate(-2deg);
+            }
+            20%, 40%, 60%, 80% {
+              transform: translateX(4px) rotate(2deg);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
