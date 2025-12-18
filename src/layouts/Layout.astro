@@ -4,73 +4,95 @@ import "../styles/global.css";
 
 <!doctype html>
 <html lang="es" class="dark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="El Impostor - Juego tipo pass-the-phone" />
-		<title>El Impostor</title>
-	</head>
-	<body class="bg-black text-white antialiased">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>🕵️‍♂️ Who is the Impostor? | Party Game</title>
+    <meta name="title" content="🕵️‍♂️ Who is the Impostor? | Party Game" />
+    <meta
+      name="description"
+      content="Don't be sus... A game of lies, laughs and suspicions. Try it now with your friends!"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mds-impostor-game.vercel.app/" />	
+    <meta
+      property="og:title"
+      content="🕵️‍♂️ Who is the Impostor? | Party Game"
+    />
+    <meta
+      property="og:description"
+      content="The perfect game for your reunions. Discover who is lying before it's too late!"
+    />
+    <meta
+      property="og:image"
+      content="https://mds-impostor-game.vercel.app/"
+    />
+
+    <meta name="theme-color" content="#ef4444" />
+  </head>
+  <body class="bg-black text-white antialiased">
+    <slot />
+  </body>
 </html>
 
 <style is:global>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		overflow-x: hidden;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
 
-	@keyframes fade-in {
-		from {
-			opacity: 0;
-			transform: translateY(10px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-	@keyframes slide-in {
-		from {
-			opacity: 0;
-			transform: translateX(-10px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-	.animate-fade-in {
-		animation: fade-in 0.3s ease-out;
-	}
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
 
-	.animate-slide-in {
-		animation: slide-in 0.3s ease-out;
-	}
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
 
-	/* Scrollbar personalizado */
-	::-webkit-scrollbar {
-		width: 8px;
-	}
+  /* Scrollbar personalizado */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 
-	::-webkit-scrollbar-track {
-		background: #1a1a1a;
-	}
+  ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
 
-	::-webkit-scrollbar-thumb {
-		background: #4a4a4a;
-		border-radius: 4px;
-	}
+  ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 4px;
+  }
 
-	::-webkit-scrollbar-thumb:hover {
-		background: #5a5a5a;
-	}
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+  }
 </style>

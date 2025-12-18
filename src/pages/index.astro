@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import GameApp from '../components/GameApp';
+import Header from './header.astro';
+import Footer from './footer.astro';
+import QuickGuide from '../components/QuickGuide.astro';
 
 const categoriesCollection = await getCollection('categories');
 
@@ -18,5 +21,8 @@ const categoriesData = categoriesCollection.map((category) => {
 ---
 
 <Layout>
+	<Header />
+	<QuickGuide />
 	<GameApp client:load categories={categoriesData} />
+	<Footer />
 </Layout>
