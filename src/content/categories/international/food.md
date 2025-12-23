@@ -15,11 +15,10 @@ words:
   - Hot dog
   - Torta
   - Empanada
-  - Sopa de maní
-  - Salteña
+  - Paella
+  - Risotto
+  - Curry
   - Churrasco
-  - Majao
-
 words_en:
   - Pizza
   - Burger
@@ -35,8 +34,9 @@ words_en:
   - Hot dog
   - Cake
   - Empanada
-  - Peanut soup
-  - Salteña
+  - Paella
+  - Risotto
+  - Curry
   - Churrasco
-  - Majao
 ---
+

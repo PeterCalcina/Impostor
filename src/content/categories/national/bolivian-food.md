@@ -1,0 +1,42 @@
+---
+name: Bolivian Food
+words:
+  - Salteña
+  - Majao
+  - Sopa de maní
+  - Pique macho
+  - Silpancho
+  - Fricase
+  - Chairo
+  - Ají de fideo
+  - Sajta de pollo
+  - Charque
+  - Anticucho
+  - Huminta
+  - Empanada de queso
+  - Sonso
+  - Thimpu
+  - Chicharrón
+  - Lechón al horno
+  - Picante de pollo
+words_en:
+  - Salteña
+  - Majao
+  - Peanut soup
+  - Pique macho
+  - Silpancho
+  - Fricase
+  - Chairo
+  - Noodle stew
+  - Chicken sajta
+  - Dried meat
+  - Anticucho
+  - Huminta
+  - Cheese empanada
+  - Sonso
+  - Thimpu
+  - Chicharrón
+  - Roast pork
+  - Spicy chicken
+---
+

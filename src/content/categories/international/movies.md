@@ -1,0 +1,62 @@
+---
+name: Movies
+words:
+  - El Padrino
+  - Titanic
+  - Avatar
+  - Pulp Fiction
+  - Forrest Gump
+  - La Lista de Schindler
+  - El Rey León
+  - Gladiador
+  - El Caballero Oscuro
+  - Star Wars
+  - El Señor de los Anillos
+  - Ciudad de Dios
+  - La Vida es Bella
+  - Jurassic Park
+  - Volver al Futuro
+  - Inception
+  - Annabelle
+  - La Bella y la Bestia
+  - La Sirenita
+  - El exorcista
+  - Shrek
+  - Toy Story
+  - Frozen
+  - Cars
+  - Buscando a Nemo
+  - Los Increíbles
+  - Los Vengadores
+
+words_en:
+  - The Godfather
+  - Titanic
+  - Avatar
+  - Pulp Fiction
+  - Forrest Gump
+  - The List of Schindler
+  - The Lion King
+  - Gladiator
+  - The Dark Knight
+  - Star Wars
+  - The Lord of the Rings
+  - City of God
+  - Life is Beautiful
+  - Jurassic Park
+  - Back to the Future
+  - Inception
+  - Annabelle
+  - Beauty and the Beast
+  - The Little Mermaid
+  - The Exorcist
+  - Shrek
+  - Toy Story
+  - Frozen
+  - Cars
+  - Finding Nemo
+  - The Incredibles
+  - The Avengers
+  - The Hobbit
+---
+

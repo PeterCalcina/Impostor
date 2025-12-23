@@ -9,23 +9,35 @@ import LanguageSelector from "../components/LanguageSelector.astro";
 
 const categoriesCollection = await getCollection("categories");
 
-// Process the categories to extract the words from the frontmatter
-// Include both Spanish and English words so the client can switch languages
-const categoriesData = categoriesCollection.map((category) => {
-  // Remove the .md extension from the category ID to match the IDs in GameSetup
-  const categoryId = category.id.replace(/\.md$/, "");
-  return {
-    id: categoryId,
-    words: Array.isArray(category.data.words) ? category.data.words : [],
-    words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
-  };
-});
+// Separate categories into international and national
+const internationalCategories = categoriesCollection
+  .filter((category) => category.id.startsWith("international/"))
+  .map((category) => {
+    // Remove "international/" prefix and .md extension
+    const categoryId = category.id.replace(/^international\//, "").replace(/\.md$/, "");
+    return {
+      id: categoryId,
+      words: Array.isArray(category.data.words) ? category.data.words : [],
+      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
+    };
+  });
+
+const nationalCategories = categoriesCollection
+  .filter((category) => category.id.startsWith("national/"))
+  .map((category) => {
+    const categoryId = category.id.replace(/^national\/bolivian-/, "").replace(/\.md$/, "");
+    return {
+      id: categoryId,
+      words: Array.isArray(category.data.words) ? category.data.words : [],
+      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
+    };
+  });
 ---
 
 <Layout>
   <LanguageSelector />
   <Header />
   <QuickGuide />
-  <GameApp client:load categories={categoriesData} />
+  <GameApp client:load internationalCategories={internationalCategories} nationalCategories={nationalCategories} />
   <Footer />
 </Layout>
