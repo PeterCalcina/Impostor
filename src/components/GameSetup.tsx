@@ -22,12 +22,13 @@ export default function GameSetup({
   const { t } = useLanguage();
   const [showSpicyDialog, setShowSpicyDialog] = useState(false);
 
-  const canStart = game.players.length >= 3 && game.selectedCategory !== null;
+  const canStart = game.players.length >= 3 && (game.selectedCategory !== null || game.randomCategory);
   const isSpicy =
     game.selectedCategory === "spicy" ? "btn-warning" : "btn-primary-md";
 
   const handleStartClick = () => {
-    if (game.selectedCategory === "spicy") {
+    // Check if selected category is spicy (only if not random)
+    if (!game.randomCategory && game.selectedCategory === "spicy") {
       setShowSpicyDialog(true);
     } else {
       onStart();

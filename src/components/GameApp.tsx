@@ -23,12 +23,6 @@ export default function GameApp({
 	const handleStart = () => {
 		const currentGame = gameStore.get();
 		
-		// Validaciones
-		if (!currentGame.selectedCategory) {
-			alert(t('gameApp.selectCategory'));
-			return;
-		}
-		
 		// Get categories based on current mode
 		const currentCategories = currentGame.gameMode === 'national' ? nationalCategories : internationalCategories;
 		
@@ -37,12 +31,26 @@ export default function GameApp({
 			return;
 		}
 		
-		// Buscar la categoría seleccionada directamente en el array
-		const selectedCategory = currentCategories.find(cat => cat.id === currentGame.selectedCategory);
+		let selectedCategory;
 		
-		if (!selectedCategory) {
-			alert(`${t('gameApp.categoryWordsError')} ${currentGame.selectedCategory}`);
-			return;
+		// If random category is enabled, select a random category
+		if (currentGame.randomCategory) {
+			const randomIndex = Math.floor(Math.random() * currentCategories.length);
+			selectedCategory = currentCategories[randomIndex];
+		} else {
+			// Validaciones
+			if (!currentGame.selectedCategory) {
+				alert(t('gameApp.selectCategory'));
+				return;
+			}
+			
+			// Buscar la categoría seleccionada directamente en el array
+			selectedCategory = currentCategories.find(cat => cat.id === currentGame.selectedCategory);
+			
+			if (!selectedCategory) {
+				alert(`${t('gameApp.categoryWordsError')} ${currentGame.selectedCategory}`);
+				return;
+			}
 		}
 		
 		// Use English words if available and language is English, otherwise use Spanish
@@ -51,11 +59,11 @@ export default function GameApp({
 			: selectedCategory.words;
 		
 		if (!words || words.length === 0) {
-			alert(`${t('gameApp.categoryWordsError')} ${currentGame.selectedCategory}`);
+			alert(`${t('gameApp.categoryWordsError')} ${selectedCategory.id}`);
 			return;
 		}
 		
-		startGame(words);
+		startGame(words, selectedCategory.id);
 	};
 
 	const handleReveal = () => {

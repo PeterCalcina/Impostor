@@ -24,7 +24,8 @@ export const translations = {
       addPlayer: "Agregar Jugador",
       playerName: "Nombre del jugador",
       players: "Jugadores",
-      selectCategory: "Selecciona una Categoría",
+      selectCategory: "Categoría",
+      randomCategory: "Categoría al azar",
       numberOfImpostors: "Número de Impostores",
       needMorePlayers: "Necesitas al menos 3 jugadores",
       start: "Empezar",
@@ -67,11 +68,16 @@ export const translations = {
     gameFinal: {
       gameFinished: "¡Juego Terminado!",
       secretWordWas: "La palabra secreta era",
+      categoryWas: "La categoría era",
       impostorWas: "El impostor era",
       impostorsWere: "Los impostores eran",
       revealWord: "Revelar Palabra",
       playAgain: "Jugar de Nuevo",
       wantToReveal: "¿Quieres revelar la palabra secreta?",
+      gameStartedBy: "El juego empieza por",
+      direction: "Dirección",
+      directionLeft: "Izquierda",
+      directionRight: "Derecha",
     },
     // Game App
     gameApp: {
@@ -103,7 +109,8 @@ export const translations = {
       addPlayer: "Add Player",
       playerName: "Player name",
       players: "Players",
-      selectCategory: "Select a Category",
+      selectCategory: "Category",
+      randomCategory: "Random category",
       numberOfImpostors: "Number of Impostors",
       needMorePlayers: "You need at least 3 players",
       start: "Start",
@@ -146,11 +153,16 @@ export const translations = {
     gameFinal: {
       gameFinished: "Game Finished!",
       secretWordWas: "The secret word was",
+      categoryWas: "The category was",
       impostorWas: "The impostor was",
       impostorsWere: "The impostors were",
       revealWord: "Reveal Word",
       playAgain: "Play Again",
       wantToReveal: "Do you want to reveal the secret word?",
+      gameStartedBy: "Game starts with",
+      direction: "Direction",
+      directionLeft: "Left",
+      directionRight: "Right",
     },
     // Game App
     gameApp: {
