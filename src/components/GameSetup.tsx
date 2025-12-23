@@ -46,21 +46,23 @@ export default function GameSetup({
 
   return (
     <>
-      <div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
-        <div className="w-full max-w-md space-y-8 animate-fade-in">
-          <PlayersInput />
+      <div className="bg-gray-950 text-white p-4 sm:p-6 flex flex-col items-center justify-center min-h-2/3">
+        <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6 animate-fade-in">
+          <div className="bg-gray-900 rounded-2xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+            <PlayersInput />
+            <ImpostorSelector />
+          </div>
           <PlayersList />
           <CategorySelector
             internationalCategories={internationalCategories}
             nationalCategories={nationalCategories}
           />
-          <ImpostorSelector />
 
           {/* Start button */}
           <button
             onClick={handleStartClick}
             disabled={!canStart}
-            className={`w-full btn-base ${canStart ? isSpicy : "btn-disabled"}`}
+            className={`w-full btn-base text-base sm:text-lg px-4 sm:px-6 py-3 sm:py-4 ${canStart ? isSpicy : "btn-disabled"}`}
           >
             {t("gameSetup.start")}
           </button>

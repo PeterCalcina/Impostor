@@ -35,12 +35,12 @@ export default function GameScreen() {
 	};
 
 	return (
-		<div className="bg-black text-white p-6 flex flex-col items-center justify-center min-h-2/3">
+		<div className="bg-gray-950 text-white p-4 sm:p-6 flex flex-col items-center justify-center min-h-2/3">
 			<div className="w-full max-w-md space-y-8 text-center animate-fade-in">
 				{/* Player's turn */}
 				<div className="space-y-4">
 					<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameScreen.turnOf')}</p>
-					<h2 className="text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-400">
+					<h2 className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-400">
 						{currentPlayer}
 					</h2>
 				</div>
@@ -94,10 +94,10 @@ export default function GameScreen() {
 				{/* Restart game */}
 				<button
 					onClick={handlePlayAgain}
-					className="w-full btn-secondary-lg flex items-center justify-center gap-3"
+					className="w-full btn-secondary-lg text-sm sm:text-base flex items-center justify-center gap-3 rounded-xl"
 				>
 					<span>{t('gameScreen.playAgain')}</span>
-					<RotateCcw className="w-6 h-6" />
+					<RotateCcw className="w-4 h-4 sm:w-6 sm:h-6" />
 				</button>
 			</div>
 		</div>

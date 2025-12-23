@@ -17,11 +17,11 @@ export function ConfirmationDialog({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border-2 border-red-500 rounded-2xl p-6 max-w-md w-full space-y-6 animate-fade-in">
+    <div className="fixed inset-0 bg-gray-950/80 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-900 border-2 border-red-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full space-y-4 sm:space-y-6 animate-fade-in">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold text-red-500">
+            <h2 className="text-2xl sm:text-3xl font-bold text-red-500">
               {t("gameSetup.spicyWarning.title")}
             </h2>
           </div>
@@ -34,10 +34,10 @@ export function ConfirmationDialog({
         </div>
 
         <div className="space-y-3">
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-300 text-base sm:text-lg">
             {t("gameSetup.spicyWarning.message")}
           </p>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-xs sm:text-sm">
             {t("gameSetup.spicyWarning.description")}
           </p>
         </div>

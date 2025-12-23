@@ -23,31 +23,27 @@ export function PlayersInput() {
   };
 
   return (
-    <div className="space-y-4">
-      <label className="block text-lg font-semibold">
+    <div className="space-y-3 sm:space-y-4">
+      <h2 className="text-base sm:text-lg font-semibold text-white">
         {t("gameSetup.addPlayer")}
-      </label>
+      </h2>
+      
       <div className="flex gap-2">
         <input
           type="text"
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder={t("gameSetup.playerName")}
-          className="flex-1 bg-gray-900 border border-gray-700 rounded-2xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          placeholder="Enter player name"
+          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
         />
-        <button onClick={handleAddPlayer} className="btn-base btn-sm">
-          <Plus className="w-5 h-5" />
+        <button 
+          onClick={handleAddPlayer} 
+          className="bg-blue-600 hover:bg-blue-700 rounded-xl w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all shrink-0 cursor-pointer"
+        >
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
         </button>
       </div>
-
-      {game.players.length > 0 && (
-        <p className="text-xs text-gray-500 text-center">
-          {game.players.length < 3
-            ? t("gameSetup.needMorePlayers")
-            : `Max Impostors: ${Math.max(1, Math.floor(game.players.length / 2))}`}
-        </p>
-      )}
     </div>
   );
 }

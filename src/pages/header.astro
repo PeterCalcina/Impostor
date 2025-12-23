@@ -5,13 +5,13 @@ const lang = getLanguage();
 const t = getTranslations(lang);
 ---
  
-<header class="text-center my-8">
+<header class="text-center my-4 sm:my-6 md:my-8 px-4">
   <h1
-    class="text-5xl font-extrabold tracking-tighter bg-linear-to-r from-red-500 to-orange-500 bg-clip-text text-transparent"
+    class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter bg-linear-to-r from-red-500 to-orange-500 bg-clip-text text-transparent"
   >
     IMPOSTOR
   </h1>
-  <p id="header-subtitle" class="text-slate-400 mt-2 italic">{t.header.subtitle}</p>
+  <p id="header-subtitle" class="text-slate-400 mt-2 sm:mt-3 italic text-sm sm:text-base md:text-lg lg:text-xl">{t.header.subtitle}</p>
 </header>
 
 <script define:vars={{ translations }}>
