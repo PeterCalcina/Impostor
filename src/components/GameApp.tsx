@@ -5,16 +5,20 @@ import GameSetup from './GameSetup';
 import GameScreen from './GameScreen';
 import GameFinal from './GameFinal';
 import { useLanguage } from '../hooks/useLanguage';
+import type { CategoryData } from './interfaces/CategoryData.interface';
 
-interface CategoryData {
-	id: string;
-	words: string[];
-	words_en: string[] | null;
-}
-
-export default function GameApp({ categories }: { categories: CategoryData[] }) {
+export default function GameApp({ 
+	internationalCategories, 
+	nationalCategories 
+}: { 
+	internationalCategories: CategoryData[];
+	nationalCategories: CategoryData[];
+}) {
 	const game = useStore(gameStore);
 	const { t, language } = useLanguage();
+
+	// Filter categories based on current game mode
+	const categories = game.gameMode === 'national' ? nationalCategories : internationalCategories;
 
 	const handleStart = () => {
 		const currentGame = gameStore.get();
@@ -25,13 +29,16 @@ export default function GameApp({ categories }: { categories: CategoryData[] }) 
 			return;
 		}
 		
-		if (!categories || categories.length === 0) {
+		// Get categories based on current mode
+		const currentCategories = currentGame.gameMode === 'national' ? nationalCategories : internationalCategories;
+		
+		if (!currentCategories || currentCategories.length === 0) {
 			alert(t('gameApp.categoriesError'));
 			return;
 		}
 		
 		// Buscar la categoría seleccionada directamente en el array
-		const selectedCategory = categories.find(cat => cat.id === currentGame.selectedCategory);
+		const selectedCategory = currentCategories.find(cat => cat.id === currentGame.selectedCategory);
 		
 		if (!selectedCategory) {
 			alert(`${t('gameApp.categoryWordsError')} ${currentGame.selectedCategory}`);
@@ -67,6 +74,6 @@ export default function GameApp({ categories }: { categories: CategoryData[] }) 
 		return <GameScreen />;
 	}
 
-	return <GameSetup onStart={handleStart} />;
+	return <GameSetup onStart={handleStart} internationalCategories={internationalCategories} nationalCategories={nationalCategories} />;
 }
 

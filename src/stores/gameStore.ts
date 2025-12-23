@@ -9,6 +9,7 @@ export interface GameState {
 	currentPlayerIndex: number;
 	gameStarted: boolean;
 	gameFinished: boolean;
+	gameMode: 'international' | 'national';
 }
 
 export const gameStore = atom<GameState>({
@@ -20,6 +21,7 @@ export const gameStore = atom<GameState>({
 	currentPlayerIndex: 0,
 	gameStarted: false,
 	gameFinished: false,
+	gameMode: 'international',
 });
 
 export function addPlayer(name: string) {
@@ -53,6 +55,15 @@ export function setNumberOfImpostors(count: number) {
 	gameStore.set({
 		...state,
 		numberOfImpostors: count,
+	});
+}
+
+export function setGameMode(mode: 'international' | 'national') {
+	const state = gameStore.get();
+	gameStore.set({
+		...state,
+		gameMode: mode,
+		selectedCategory: null, // Reset category when changing mode
 	});
 }
 
@@ -123,6 +134,7 @@ export function resetAll() {
 		currentPlayerIndex: 0,
 		gameStarted: false,
 		gameFinished: false,
+		gameMode: 'international',
 	});
 }
 

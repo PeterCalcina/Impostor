@@ -28,6 +28,10 @@ export const translations = {
       numberOfImpostors: "Número de Impostores",
       needMorePlayers: "Necesitas al menos 3 jugadores",
       start: "Empezar",
+      gameMode: {
+        international: "International",
+        national: "🇧🇴 Sabor Nacional",
+      },
       spicyWarning: {
         title: "⚠️ Advertencia: Contenido Picante",
         message: "Esta categoría contiene palabras con contenido para adultos.",
@@ -44,6 +48,10 @@ export const translations = {
       animals: "Animales",
       sports: "Deportes",
       spicy: "Picante",
+      movies: "Películas",
+      series: "Series",
+      dances: "Bailes danzas",
+      generalCulture: "Cultura general",
     },
     // Game Screen
     gameScreen: {
@@ -99,6 +107,10 @@ export const translations = {
       numberOfImpostors: "Number of Impostors",
       needMorePlayers: "You need at least 3 players",
       start: "Start",
+      gameMode: {
+        international: "International",
+        national: "🇧🇴 National Flavor",
+      },
       spicyWarning: {
         title: "⚠️ Warning: Spicy Content",
         message: "This category contains words with adult content.",
@@ -115,6 +127,10 @@ export const translations = {
       animals: "Animals",
       sports: "Sports",
       spicy: "Spicy",
+      movies: "Movies",
+      series: "Series",
+      dances: "Dances",
+      generalCulture: "General Culture",
     },
     // Game Screen
     gameScreen: {

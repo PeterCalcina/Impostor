@@ -7,14 +7,24 @@ import { PlayersList } from "./setup/PlayersList";
 import { CategorySelector } from "./setup/CategorySelector";
 import { ImpostorSelector } from "./setup/ImpostorSelector";
 import { ConfirmationDialog } from "./setup/ConfirmationDialog";
+import type { CategoryData } from "./interfaces/CategoryData.interface";
 
-export default function GameSetup({ onStart }: { onStart: () => void }) {
+export default function GameSetup({
+  onStart,
+  internationalCategories,
+  nationalCategories,
+}: {
+  onStart: () => void;
+  internationalCategories: CategoryData[];
+  nationalCategories: CategoryData[];
+}) {
   const game = useStore(gameStore);
   const { t } = useLanguage();
   const [showSpicyDialog, setShowSpicyDialog] = useState(false);
 
   const canStart = game.players.length >= 3 && game.selectedCategory !== null;
-  const isSpicy = game.selectedCategory === "spicy" ? "btn-warning" : "btn-primary-md";
+  const isSpicy =
+    game.selectedCategory === "spicy" ? "btn-warning" : "btn-primary-md";
 
   const handleStartClick = () => {
     if (game.selectedCategory === "spicy") {
@@ -39,7 +49,10 @@ export default function GameSetup({ onStart }: { onStart: () => void }) {
         <div className="w-full max-w-md space-y-8 animate-fade-in">
           <PlayersInput />
           <PlayersList />
-          <CategorySelector />
+          <CategorySelector
+            internationalCategories={internationalCategories}
+            nationalCategories={nationalCategories}
+          />
           <ImpostorSelector />
 
           {/* Start button */}
