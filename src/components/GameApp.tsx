@@ -53,17 +53,18 @@ export default function GameApp({
 			}
 		}
 		
-		// Use English words if available and language is English, otherwise use Spanish
-		const words = language === 'en' && selectedCategory.words_en && selectedCategory.words_en.length > 0
-			? selectedCategory.words_en
-			: selectedCategory.words;
+		// Always pass Spanish words as primary and English words as secondary
+		const wordsEs = selectedCategory.words;
+		const wordsEn = selectedCategory.words_en && selectedCategory.words_en.length > 0 
+			? selectedCategory.words_en 
+			: null;
 		
-		if (!words || words.length === 0) {
+		if (!wordsEs || wordsEs.length === 0) {
 			alert(`${t('gameApp.categoryWordsError')} ${selectedCategory.id}`);
 			return;
 		}
 		
-		startGame(words, selectedCategory.id);
+		startGame(wordsEs, selectedCategory.id, wordsEn);
 	};
 
 	const handleReveal = () => {

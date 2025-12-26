@@ -6,13 +6,16 @@ import { useLanguage } from '../hooks/useLanguage';
 
 export default function GameScreen() {
 	const game = useStore(gameStore);
-	const { t } = useLanguage();
+	const { t, language } = useLanguage();
 	const [showWord, setShowWord] = useState(false);
 	const [wordRevealed, setWordRevealed] = useState(false);
 
 	const currentPlayer = game.players[game.currentPlayerIndex];
 	const isImpostor = game.impostorIndices.includes(game.currentPlayerIndex);
-	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : game.secretWord || '';
+	
+	// Use English word if language is English and it exists, otherwise use Spanish word
+	const secretWord = language === 'en' && game.secretWordEn ? game.secretWordEn : game.secretWord;
+	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : secretWord || '';
 
 	const handleShowWord = () => {
 		setShowWord(true);

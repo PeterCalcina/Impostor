@@ -7,8 +7,10 @@ import { categories } from './setup/categories';
 
 export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => void; onPlayAgain: () => void }) {
 	const game = useStore(gameStore);
-	const { t } = useLanguage();
+	const { t, language } = useLanguage();
 	const [wordRevealed, setWordRevealed] = useState(false);
+	
+	const secretWord = language === 'en' && game.secretWordEn ? game.secretWordEn : game.secretWord;
 
 	const handleReveal = () => {
 		setWordRevealed(true);
@@ -45,7 +47,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 						<div className="space-y-2 sm:space-y-3">
 							<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.secretWordWas')}</p>
 							<div className="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl px-6 py-10 text-2xl sm:text-3xl font-bold">
-								{game.secretWord}
+								{secretWord}
 							</div>
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
