@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { gameStore, setCategory, setRandomCategory } from "../../stores/gameStore";
+import { gameStore, setCategory, setRandomCategory, setImpostorHintsEnabled } from "../../stores/gameStore";
 import { useLanguage } from "../../hooks/useLanguage";
 import { categories } from "./categories";
 import { GameModeToggle } from "./GameModeToggle";
@@ -51,6 +51,26 @@ export function CategorySelector({
               type="checkbox"
               checked={game.randomCategory}
               onChange={(e) => setRandomCategory(e.target.checked)}
+              className="sr-only peer"
+            />
+            <div className="relative w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+          </label>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base sm:text-lg font-semibold text-white">
+              {t("gameSetup.impostorHints")}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+              {t("gameSetup.impostorHintsDescription")}
+            </p>
+          </div>
+          <label className="inline-flex items-center cursor-pointer shrink-0">
+            <input
+              type="checkbox"
+              checked={game.impostorHintsEnabled}
+              onChange={(e) => setImpostorHintsEnabled(e.target.checked)}
               className="sr-only peer"
             />
             <div className="relative w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>

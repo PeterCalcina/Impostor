@@ -4,6 +4,7 @@ export interface GameState {
 	players: string[];
 	selectedCategory: string | null;
 	randomCategory: boolean;
+	impostorHintsEnabled: boolean;
 	numberOfImpostors: number;
 	secretWord: string;
 	secretWordEn: string;
@@ -22,6 +23,7 @@ export const gameStore = atom<GameState>({
 	players: [],
 	selectedCategory: null,
 	randomCategory: false,
+	impostorHintsEnabled: false,
 	numberOfImpostors: 1,
 	secretWord: '',
 	secretWordEn: '',
@@ -69,6 +71,14 @@ export function setRandomCategory(enabled: boolean) {
 		...state,
 		randomCategory: enabled,
 		selectedCategory: enabled ? null : state.selectedCategory, // Clear selection when enabling random
+	});
+}
+
+export function setImpostorHintsEnabled(enabled: boolean) {
+	const state = gameStore.get();
+	gameStore.set({
+		...state,
+		impostorHintsEnabled: enabled,
 	});
 }
 
@@ -186,6 +196,7 @@ export function resetGame() {
 		gameDirection: 'right',
 		gameStarted: false,
 		gameFinished: false,
+		impostorHintsEnabled: false,
 	});
 }
 
@@ -194,6 +205,7 @@ export function resetAll() {
 		players: [],
 		selectedCategory: null,
 		randomCategory: false,
+		impostorHintsEnabled: false,
 		numberOfImpostors: 1,
 		secretWord: '',
 		secretWordEn: '',
