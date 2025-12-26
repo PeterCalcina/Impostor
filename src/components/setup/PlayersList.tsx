@@ -53,7 +53,7 @@ export function PlayersList() {
         </div>
       </div>
       
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-60 overflow-y-auto">
         {game.players.map((player, index) => (
           <div
             key={player}
