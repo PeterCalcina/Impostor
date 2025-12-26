@@ -5,8 +5,10 @@ export interface GameState {
 	selectedCategory: string | null;
 	randomCategory: boolean;
 	numberOfImpostors: number;
-	secretWord: string | null;
-	secretWordEn: string | null;
+	secretWord: string;
+	secretWordEn: string;
+	secretWordHints: Record<string, string[]>;
+	secretWordHintsEn: Record<string, string[]>;
 	impostorIndices: number[];
 	currentPlayerIndex: number;
 	startingPlayerIndex: number;
@@ -21,8 +23,10 @@ export const gameStore = atom<GameState>({
 	selectedCategory: null,
 	randomCategory: false,
 	numberOfImpostors: 1,
-	secretWord: null,
-	secretWordEn: null,
+	secretWord: '',
+	secretWordEn: '',
+	secretWordHints: {},
+	secretWordHintsEn: {},
 	impostorIndices: [],
 	currentPlayerIndex: 0,
 	startingPlayerIndex: 0,
@@ -85,7 +89,13 @@ export function setGameMode(mode: 'international' | 'national') {
 	});
 }
 
-export function startGame(words: string[], selectedCategoryId?: string, wordsEn?: string[] | null) {
+export function startGame(
+	words: string[], 
+	wordsEn: string[],
+	hints: Record<string, string[]>,
+	hintsEn: Record<string, string[]>,
+	selectedCategoryId?: string,
+) {
 	const state = gameStore.get();
 	if (state.players.length < 3 || (!state.selectedCategory && !state.randomCategory) || words.length === 0) {
 		return;
@@ -97,7 +107,7 @@ export function startGame(words: string[], selectedCategoryId?: string, wordsEn?
 	// Select a random index to ensure we get the same word in both languages
 	const randomIndex = Math.floor(Math.random() * words.length);
 	const randomWord = words[randomIndex];
-	const randomWordEn = wordsEn && wordsEn.length > randomIndex ? wordsEn[randomIndex] : null;
+	const randomWordEn = wordsEn[randomIndex];
 	
 	// Select random impostors (ensure we don't select more impostors than players)
 	const maxImpostors = Math.min(state.numberOfImpostors, state.players.length - 1);
@@ -121,6 +131,8 @@ export function startGame(words: string[], selectedCategoryId?: string, wordsEn?
 		selectedCategory: categoryToSave, // Save the selected category (random or manual)
 		secretWord: randomWord,
 		secretWordEn: randomWordEn,
+		secretWordHints: hints,
+		secretWordHintsEn: hintsEn,
 		impostorIndices: impostorIndices,
 		currentPlayerIndex: randomStartingPlayer,
 		startingPlayerIndex: randomStartingPlayer,
@@ -164,8 +176,10 @@ export function resetGame() {
 		...state,
 		selectedCategory: null,
 		randomCategory: false,
-		secretWord: null,
-		secretWordEn: null,
+		secretWord: '',
+		secretWordEn: '',
+		secretWordHints: {},
+		secretWordHintsEn: {},
 		impostorIndices: [],
 		currentPlayerIndex: 0,
 		startingPlayerIndex: 0,
@@ -181,8 +195,10 @@ export function resetAll() {
 		selectedCategory: null,
 		randomCategory: false,
 		numberOfImpostors: 1,
-		secretWord: null,
-		secretWordEn: null,
+		secretWord: '',
+		secretWordEn: '',
+		secretWordHints: {},
+		secretWordHintsEn: {},
 		impostorIndices: [],
 		currentPlayerIndex: 0,
 		startingPlayerIndex: 0,

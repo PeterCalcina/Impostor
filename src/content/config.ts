@@ -5,7 +5,9 @@ const categoriesCollection = defineCollection({
 	schema: z.object({
 		name: z.string(),
 		words: z.array(z.string()),
-		words_en: z.array(z.string()).optional(),
+		words_en: z.array(z.string()),
+		hints: z.record(z.string(), z.array(z.string())),
+		hints_en: z.record(z.string(), z.array(z.string())),
 	}),
 });
 

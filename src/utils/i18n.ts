@@ -63,6 +63,8 @@ export const translations = {
       of: "de",
       youAreImpostor: "ERES EL IMPOSTOR",
       playAgain: "Reiniciar Partida",
+      hints: "Pistas:",
+      noHints: "No hay pistas disponibles",
     },
     // Game Final
     gameFinal: {
@@ -148,6 +150,8 @@ export const translations = {
       of: "of",
       youAreImpostor: "YOU ARE THE IMPOSTOR",
       playAgain: "Play Again",
+      hints: "Hints:",
+      noHints: "No hints available",
     },
     // Game Final
     gameFinal: {

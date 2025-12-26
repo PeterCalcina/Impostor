@@ -13,9 +13,10 @@ export default function GameScreen() {
 	const currentPlayer = game.players[game.currentPlayerIndex];
 	const isImpostor = game.impostorIndices.includes(game.currentPlayerIndex);
 	
-	// Use English word if language is English and it exists, otherwise use Spanish word
-	const secretWord = language === 'en' && game.secretWordEn ? game.secretWordEn : game.secretWord;
-	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : secretWord || '';
+	const secretWord = language === 'en' ? game.secretWordEn : game.secretWord;
+	const secretWordHintsMap = language === 'en' ? game.secretWordHintsEn : game.secretWordHints;
+	const secretWordHints = secretWordHintsMap[secretWord] || [];
+	const displayText = isImpostor ? t('gameScreen.youAreImpostor') : secretWord;
 
 	const handleShowWord = () => {
 		setShowWord(true);
@@ -76,6 +77,21 @@ export default function GameScreen() {
 							>
 								{displayText}
 							</div>
+							{isImpostor && secretWordHints.length > 0 && (
+								<div className="w-full rounded-2xl px-6 py-6 bg-gray-800 border border-gray-700">
+									<p className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+										{t('gameScreen.hints')}
+									</p>
+									<ul className="space-y-2 text-left">
+										{secretWordHints.map((hint, index) => (
+											<li key={index} className="text-white text-base flex items-start gap-2">
+												<span className="text-gray-500 mt-1">•</span>
+												<span>{hint}</span>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
 							<button
 								onClick={handleNext}
 								className="w-full btn-base btn-secondary-lg flex items-center justify-center gap-3"

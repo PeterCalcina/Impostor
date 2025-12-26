@@ -10,7 +10,7 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 	const { t, language } = useLanguage();
 	const [wordRevealed, setWordRevealed] = useState(false);
 	
-	const secretWord = language === 'en' && game.secretWordEn ? game.secretWordEn : game.secretWord;
+	const secretWord = language === 'en' ? game.secretWordEn : game.secretWord;
 
 	const handleReveal = () => {
 		setWordRevealed(true);

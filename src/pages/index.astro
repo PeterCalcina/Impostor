@@ -18,7 +18,9 @@ const internationalCategories = categoriesCollection
     return {
       id: categoryId,
       words: Array.isArray(category.data.words) ? category.data.words : [],
-      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
+      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : [],
+      hints: category.data.hints,
+      hints_en: category.data.hints_en,
     };
   });
 
@@ -29,7 +31,9 @@ const nationalCategories = categoriesCollection
     return {
       id: categoryId,
       words: Array.isArray(category.data.words) ? category.data.words : [],
-      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : null,
+      words_en: Array.isArray(category.data.words_en) ? category.data.words_en : [],
+      hints: category.data.hints,
+      hints_en: category.data.hints_en,
     };
   });
 ---

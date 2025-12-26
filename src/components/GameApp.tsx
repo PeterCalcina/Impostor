@@ -53,18 +53,12 @@ export default function GameApp({
 			}
 		}
 		
-		// Always pass Spanish words as primary and English words as secondary
-		const wordsEs = selectedCategory.words;
-		const wordsEn = selectedCategory.words_en && selectedCategory.words_en.length > 0 
-			? selectedCategory.words_en 
-			: null;
-		
-		if (!wordsEs || wordsEs.length === 0) {
+		if (!selectedCategory.words || selectedCategory.words.length === 0) {
 			alert(`${t('gameApp.categoryWordsError')} ${selectedCategory.id}`);
 			return;
 		}
 		
-		startGame(wordsEs, selectedCategory.id, wordsEn);
+		startGame(selectedCategory.words, selectedCategory.words_en, selectedCategory.hints, selectedCategory.hints_en, selectedCategory.id);
 	};
 
 	const handleReveal = () => {
