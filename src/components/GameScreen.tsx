@@ -13,10 +13,23 @@ export default function GameScreen() {
   const currentPlayer = game.players[game.currentPlayerIndex];
   const isImpostor = game.impostorIndices.includes(game.currentPlayerIndex);
 
-  const secretWord = language === "en" ? game.secretWordEn : game.secretWord;
-  const secretWordHintsMap =
-    language === "en" ? game.secretWordHintsEn : game.secretWordHints;
-  const secretWordHints = secretWordHintsMap[secretWord] || [];
+  // In crazy mode, use player-specific words, otherwise use single word
+  let secretWord: string;
+  let secretWordHints: string[] = [];
+  
+  if (game.crazyMode && game.secretWords.length > 0) {
+    const playerWord = language === "en" 
+      ? game.secretWordsEn[game.currentPlayerIndex] 
+      : game.secretWords[game.currentPlayerIndex];
+    secretWord = playerWord || '';
+    const secretWordHintsMap = language === "en" ? game.secretWordHintsEn : game.secretWordHints;
+    secretWordHints = secretWordHintsMap[secretWord] || [];
+  } else {
+    secretWord = language === "en" ? game.secretWordEn : game.secretWord;
+    const secretWordHintsMap = language === "en" ? game.secretWordHintsEn : game.secretWordHints;
+    secretWordHints = secretWordHintsMap[secretWord] || [];
+  }
+  
   const displayText = isImpostor ? t("gameScreen.youAreImpostor") : secretWord;
 
   const handleShowWord = () => {

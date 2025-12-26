@@ -10,6 +10,8 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 	const { t, language } = useLanguage();
 	const [wordRevealed, setWordRevealed] = useState(false);
 	
+	// In crazy mode, we have different words for each player
+	const isCrazyMode = game.crazyMode;
 	const secretWord = language === 'en' ? game.secretWordEn : game.secretWord;
 
 	const handleReveal = () => {
@@ -28,7 +30,9 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 	
 	// Get category name from selected category ID
 	const categoryInfo = categories.find(cat => cat.id === game.selectedCategory);
-	const categoryName = categoryInfo ? t(categoryInfo.nameKey) : game.selectedCategory || '';
+	const categoryName = isCrazyMode 
+		? t('gameSetup.crazyMode') 
+		: (categoryInfo ? t(categoryInfo.nameKey) : game.selectedCategory || '');
 
 	return (
 		<div className="bg-gray-950 text-white p-4 sm:p-6 flex flex-col items-center justify-center min-h-2/3">
@@ -44,17 +48,42 @@ export default function GameFinal({ onReveal, onPlayAgain }: { onReveal: () => v
 
 				{wordRevealed ? (
 					<div className="space-y-4 sm:space-y-6">
-						<div className="space-y-2 sm:space-y-3">
-							<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.secretWordWas')}</p>
-							<div className="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl px-6 py-10 text-2xl sm:text-3xl font-bold">
-								{secretWord}
+						{isCrazyMode ? (
+							// Show all words for each player in crazy mode
+							<div className="space-y-3 sm:space-y-4">
+								<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.secretWordWas')}</p>
+								{game.players.map((player, index) => {
+									const playerWord = language === 'en' 
+										? game.secretWordsEn[index] 
+										: game.secretWords[index];
+									const isImpostor = game.impostorIndices.includes(index);
+									return (
+										<div key={index} className="space-y-1">
+											<p className="text-gray-300 text-sm font-semibold">{player}:</p>
+											<div className={`rounded-2xl px-4 py-6 text-lg sm:text-xl font-bold ${
+												isImpostor 
+													? 'bg-linear-to-r from-red-600 to-orange-600' 
+													: 'bg-linear-to-r from-green-600 to-emerald-600'
+											}`}>
+												{isImpostor ? t('gameScreen.youAreImpostor') : (playerWord || '-')}
+											</div>
+										</div>
+									);
+								})}
 							</div>
-						</div>
+						) : (
+							<div className="space-y-2 sm:space-y-3">
+								<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.secretWordWas')}</p>
+								<div className="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl px-6 py-10 text-2xl sm:text-3xl font-bold">
+									{secretWord}
+								</div>
+							</div>
+						)}
 						<div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
 							<div className="flex-1 space-y-2 sm:space-y-3">
 								<p className="text-gray-400 text-sm uppercase tracking-wider">{t('gameFinal.categoryWas')}</p>
 								<div className="bg-linear-to-r from-blue-600 to-cyan-600 rounded-2xl px-6 py-6 text-lg sm:text-xl font-bold">
-									{categoryInfo?.icon && <span className="mr-2">{categoryInfo.icon}</span>}
+									{isCrazyMode ? '🎲' : (categoryInfo?.icon && <span className="mr-2">{categoryInfo.icon}</span>)}
 									{categoryName}
 								</div>
 							</div>

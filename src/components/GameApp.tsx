@@ -5,6 +5,7 @@ import GameSetup from './GameSetup';
 import GameScreen from './GameScreen';
 import GameFinal from './GameFinal';
 import { useLanguage } from '../hooks/useLanguage';
+import { generateCrazyModeWords, getAvailableCategoriesForCrazyMode } from '../utils/crazyMode';
 import type { CategoryData } from './interfaces/CategoryData.interface';
 
 export default function GameApp({ 
@@ -28,6 +29,56 @@ export default function GameApp({
 		
 		if (!currentCategories || currentCategories.length === 0) {
 			alert(t('gameApp.categoriesError'));
+			return;
+		}
+		
+		// Handle Crazy Mode
+		if (currentGame.crazyMode) {
+			const availableCategories = getAvailableCategoriesForCrazyMode(currentCategories, currentGame.gameMode);
+			
+			if (availableCategories.length === 0) {
+				alert(t('gameApp.categoriesError'));
+				return;
+			}
+			
+			try {
+				const crazyWords = generateCrazyModeWords(
+					currentGame.players,
+					availableCategories,
+					currentGame.numberOfImpostors
+				);
+				
+				// Merge all hints from all categories used
+				const allHints: Record<string, string[]> = {};
+				const allHintsEn: Record<string, string[]> = {};
+				
+				availableCategories.forEach(cat => {
+					if (cat.hints) {
+						Object.assign(allHints, cat.hints);
+					}
+					if (cat.hints_en) {
+						Object.assign(allHintsEn, cat.hints_en);
+					}
+				});
+				
+				// Add hints from generated words
+				Object.assign(allHints, crazyWords.hints);
+				Object.assign(allHintsEn, crazyWords.hintsEn);
+				
+				startGame(
+					[], // Not used in crazy mode
+					[], // Not used in crazy mode
+					allHints,
+					allHintsEn,
+					'crazy', // Special category ID for crazy mode
+					crazyWords.impostorIndices,
+					crazyWords.words,
+					crazyWords.wordsEn
+				);
+			} catch (error) {
+				alert(error instanceof Error ? error.message : t('gameApp.categoriesError'));
+				return;
+			}
 			return;
 		}
 		

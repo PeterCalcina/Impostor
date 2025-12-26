@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { gameStore, setCategory, setRandomCategory, setImpostorHintsEnabled } from "../../stores/gameStore";
+import { gameStore, setCategory, setRandomCategory, setImpostorHintsEnabled, setCrazyMode } from "../../stores/gameStore";
 import { useLanguage } from "../../hooks/useLanguage";
 import { categories } from "./categories";
 import { GameModeToggle } from "./GameModeToggle";
@@ -46,11 +46,12 @@ export function CategorySelector({
               Automatically select a category
             </p>
           </div>
-          <label className="inline-flex items-center cursor-pointer shrink-0">
+          <label className={`inline-flex items-center shrink-0 ${game.crazyMode ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
             <input
               type="checkbox"
               checked={game.randomCategory}
               onChange={(e) => setRandomCategory(e.target.checked)}
+              disabled={game.crazyMode}
               className="sr-only peer"
             />
             <div className="relative w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
@@ -76,6 +77,26 @@ export function CategorySelector({
             <div className="relative w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
           </label>
         </div>
+        
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base sm:text-lg font-semibold text-white">
+              {t("gameSetup.crazyMode")}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+              {t("gameSetup.crazyModeDescription")}
+            </p>
+          </div>
+          <label className="inline-flex items-center cursor-pointer shrink-0">
+            <input
+              type="checkbox"
+              checked={game.crazyMode}
+              onChange={(e) => setCrazyMode(e.target.checked)}
+              className="sr-only peer"
+            />
+            <div className="relative w-9 h-5 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600"></div>
+          </label>
+        </div>
       </div>
 
       {/* Categories Grid */}
@@ -86,10 +107,10 @@ export function CategorySelector({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {visibleCategories.map((category, index) => {
             const isSpicy = category.id === "spicy";
-            const isSelected = game.selectedCategory === category.id && !game.randomCategory;
+            const isSelected = game.selectedCategory === category.id && !game.randomCategory && !game.crazyMode;
             const isShaking = shakingCategory === category.id;
             const isLast = index === visibleCategories.length - 1;
-            const isDisabled = game.randomCategory;
+            const isDisabled = game.randomCategory || game.crazyMode;
 
             const handleCategoryClick = () => {
               if (!isDisabled) {

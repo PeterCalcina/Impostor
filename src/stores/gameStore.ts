@@ -5,9 +5,13 @@ export interface GameState {
 	selectedCategory: string | null;
 	randomCategory: boolean;
 	impostorHintsEnabled: boolean;
+	crazyMode: boolean;
 	numberOfImpostors: number;
 	secretWord: string;
 	secretWordEn: string;
+	// For crazy mode: words per player
+	secretWords: string[];
+	secretWordsEn: string[];
 	secretWordHints: Record<string, string[]>;
 	secretWordHintsEn: Record<string, string[]>;
 	impostorIndices: number[];
@@ -24,9 +28,12 @@ export const gameStore = atom<GameState>({
 	selectedCategory: null,
 	randomCategory: false,
 	impostorHintsEnabled: false,
+	crazyMode: false,
 	numberOfImpostors: 1,
 	secretWord: '',
 	secretWordEn: '',
+	secretWords: [],
+	secretWordsEn: [],
 	secretWordHints: {},
 	secretWordHintsEn: {},
 	impostorIndices: [],
@@ -58,6 +65,9 @@ export function removePlayer(name: string) {
 
 export function setCategory(category: string) {
 	const state = gameStore.get();
+	if (state.crazyMode) {
+		return; // Cannot select category in crazy mode
+	}
 	gameStore.set({
 		...state,
 		selectedCategory: category,
@@ -67,6 +77,9 @@ export function setCategory(category: string) {
 
 export function setRandomCategory(enabled: boolean) {
 	const state = gameStore.get();
+	if (state.crazyMode) {
+		return; // Cannot use random category in crazy mode
+	}
 	gameStore.set({
 		...state,
 		randomCategory: enabled,
@@ -79,6 +92,16 @@ export function setImpostorHintsEnabled(enabled: boolean) {
 	gameStore.set({
 		...state,
 		impostorHintsEnabled: enabled,
+	});
+}
+
+export function setCrazyMode(enabled: boolean) {
+	const state = gameStore.get();
+	gameStore.set({
+		...state,
+		crazyMode: enabled,
+		selectedCategory: enabled ? null : state.selectedCategory, // Clear selection when enabling crazy mode
+		randomCategory: enabled ? false : state.randomCategory, // Disable random when enabling crazy mode
 	});
 }
 
@@ -105,14 +128,49 @@ export function startGame(
 	hints: Record<string, string[]>,
 	hintsEn: Record<string, string[]>,
 	selectedCategoryId?: string,
+	impostorIndices?: number[],
+	playerWords?: string[],
+	playerWordsEn?: string[],
 ) {
 	const state = gameStore.get();
-	if (state.players.length < 3 || (!state.selectedCategory && !state.randomCategory) || words.length === 0) {
+	if (state.players.length < 3 || (!state.selectedCategory && !state.randomCategory && !state.crazyMode)) {
 		return;
 	}
 	
 	// If a category ID is provided (from random selection), save it to the store
 	const categoryToSave = selectedCategoryId || state.selectedCategory;
+
+	// For crazy mode, use provided player words and impostor indices
+	if (state.crazyMode && playerWords && playerWordsEn && impostorIndices) {
+		// Select random starting player
+		const randomStartingPlayer = Math.floor(Math.random() * state.players.length);
+		
+		// Select random direction (left or right)
+		const randomDirection = Math.random() < 0.5 ? 'left' : 'right';
+
+		gameStore.set({
+			...state,
+			selectedCategory: categoryToSave,
+			secretWord: '', // Not used in crazy mode
+			secretWordEn: '', // Not used in crazy mode
+			secretWords: playerWords,
+			secretWordsEn: playerWordsEn,
+			secretWordHints: hints,
+			secretWordHintsEn: hintsEn,
+			impostorIndices: impostorIndices,
+			currentPlayerIndex: randomStartingPlayer,
+			startingPlayerIndex: randomStartingPlayer,
+			gameDirection: randomDirection,
+			gameStarted: true,
+			gameFinished: false,
+		});
+		return;
+	}
+
+	// Normal mode: single word for all players
+	if (words.length === 0) {
+		return;
+	}
 
 	// Select a random index to ensure we get the same word in both languages
 	const randomIndex = Math.floor(Math.random() * words.length);
@@ -121,12 +179,12 @@ export function startGame(
 	
 	// Select random impostors (ensure we don't select more impostors than players)
 	const maxImpostors = Math.min(state.numberOfImpostors, state.players.length - 1);
-	const impostorIndices: number[] = [];
+	const normalImpostorIndices: number[] = [];
 	
-	while (impostorIndices.length < maxImpostors) {
+	while (normalImpostorIndices.length < maxImpostors) {
 		const randomIndex = Math.floor(Math.random() * state.players.length);
-		if (!impostorIndices.includes(randomIndex)) {
-			impostorIndices.push(randomIndex);
+		if (!normalImpostorIndices.includes(randomIndex)) {
+			normalImpostorIndices.push(randomIndex);
 		}
 	}
 
@@ -141,9 +199,11 @@ export function startGame(
 		selectedCategory: categoryToSave, // Save the selected category (random or manual)
 		secretWord: randomWord,
 		secretWordEn: randomWordEn,
+		secretWords: [],
+		secretWordsEn: [],
 		secretWordHints: hints,
 		secretWordHintsEn: hintsEn,
-		impostorIndices: impostorIndices,
+		impostorIndices: normalImpostorIndices,
 		currentPlayerIndex: randomStartingPlayer,
 		startingPlayerIndex: randomStartingPlayer,
 		gameDirection: randomDirection,
@@ -188,6 +248,8 @@ export function resetGame() {
 		randomCategory: false,
 		secretWord: '',
 		secretWordEn: '',
+		secretWords: [],
+		secretWordsEn: [],
 		secretWordHints: {},
 		secretWordHintsEn: {},
 		impostorIndices: [],
@@ -197,6 +259,7 @@ export function resetGame() {
 		gameStarted: false,
 		gameFinished: false,
 		impostorHintsEnabled: false,
+		crazyMode: false,
 	});
 }
 
@@ -206,9 +269,12 @@ export function resetAll() {
 		selectedCategory: null,
 		randomCategory: false,
 		impostorHintsEnabled: false,
+		crazyMode: false,
 		numberOfImpostors: 1,
 		secretWord: '',
 		secretWordEn: '',
+		secretWords: [],
+		secretWordsEn: [],
 		secretWordHints: {},
 		secretWordHintsEn: {},
 		impostorIndices: [],

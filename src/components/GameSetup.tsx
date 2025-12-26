@@ -22,7 +22,7 @@ export default function GameSetup({
   const { t } = useLanguage();
   const [showSpicyDialog, setShowSpicyDialog] = useState(false);
 
-  const canStart = game.players.length >= 3 && (game.selectedCategory !== null || game.randomCategory);
+  const canStart = game.players.length >= 3 && (game.selectedCategory !== null || game.randomCategory || game.crazyMode);
   const isSpicy =
     game.selectedCategory === "spicy" ? "btn-warning" : "btn-primary-md";
 
